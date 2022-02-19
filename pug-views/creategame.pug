@@ -5,7 +5,7 @@ html
 
         script(src="/lib/ol.js")
 
-    body
+    body(onload="mapSetupCreateGame()")
         h2 Spiel erstellen
         //div#map.map(style="height:820px; width: 820px;")
         //a(method="get" class='button' href="http://192.168.0.90/default_owntracks_config.txt" download="config.otrc") Download
@@ -23,6 +23,7 @@ html
             |lobbyname
             input(type="text" name="lobbyname" required)
             br
+            input(type="hidden" name="hidden" required)
             input(type="submit" class='button center blue' value="Spiel erstellen")
 
         | Input-Mode :

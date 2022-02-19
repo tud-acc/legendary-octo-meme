@@ -249,6 +249,8 @@ app.post("/creategame.js", function (req, res) {
 
     var lobbyindex = Object.keys(gamedata.lobbies).length;
 
+    debug(D, "Backend - Route - POST /creategame.js - hidden input string", params.get("hidden"));
+
     var newgame_data = {
       id: req.session.id,
       lobbyname: params.get("lobbyname"),
