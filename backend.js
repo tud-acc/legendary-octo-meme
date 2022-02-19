@@ -125,11 +125,7 @@ var gamedata = {
 // GET Route /node.js -> PUG: index.pug
 app.get("/node.js", function (req, res) {
   debug(D, "Backend - Route - GET /node.js");
-  debug(
-    D,
-    "Backend - Route - GET /node.js - cache.get(req.session.id):",
-    cache.get(req.session.id)
-  );
+  debug(D, "Backend - Route - GET /node.js - cache.get(req.session.id):", cache.get(req.session.id));
   debug(D, "Backend - Route - GET /node.js - req.session.id:", req.session.id);
 
   req.session.isAuth = true;
@@ -169,11 +165,7 @@ app.get("/node.js", function (req, res) {
 // POST Route /node.js -> Redirect: GET auf /node.js
 app.post("/node.js", function (req, res) {
   debug(D, "Backend - Route - POST /node.js");
-  debug(
-    D,
-    "Backend - Route - GET /node.js - cache.get(req.session.id):",
-    cache.get(req.session.id)
-  );
+  debug(D, "Backend - Route - GET /node.js - cache.get(req.session.id):", cache.get(req.session.id));
 
   session_data = cache.get(req.session.id);
 
@@ -197,11 +189,7 @@ app.post("/node.js", function (req, res) {
 // GET Route /joingame.js -> PUG: joingame.pug
 app.get("/joingame.js", function (req, res) {
   debug(D, "Backend - Route - GET /joingame.js");
-  debug(
-    D,
-    "Backend - Route - GET /joingame.js - cache.get(req.session.id): ",
-    cache.get(req.session.id)
-  );
+  debug(D, "Backend - Route - GET /joingame.js - cache.get(req.session.id): ", cache.get(req.session.id));
 
   res.render("joingame");
 });
@@ -209,11 +197,7 @@ app.get("/joingame.js", function (req, res) {
 // POST Route /joingame.js -> Redirect: GET auf /lobbyoverview.js
 app.post("/joingame.js", function (req, res) {
   debug(D, "Backend - Route - POST /joingame.js");
-  debug(
-    D,
-    "Backend - Route - POST /joingame.js - cache.get(req.session.id): ",
-    cache.get(req.session.id)
-  );
+  debug(D, "Backend - Route - POST /joingame.js - cache.get(req.session.id): ", cache.get(req.session.id));
 
   var session_data = cache.get(req.session.id);
 
@@ -227,11 +211,7 @@ app.post("/joingame.js", function (req, res) {
 
     session_data.username = params.get("username");
 
-    debug(
-      D,
-      "Backend - Route - POST /joingame.js - Object.keys(gamedata.lobbies).length",
-      Object.keys(gamedata.lobbies).length
-    );
+    debug(D, "Backend - Route - POST /joingame.js - Object.keys(gamedata.lobbies).length", Object.keys(gamedata.lobbies).length);
 
     cache.put(req.session.id, session_data);
 
@@ -243,11 +223,7 @@ app.post("/joingame.js", function (req, res) {
 // GET Route /creategame.js -> PUG: creategame.pug
 app.get("/creategame.js", function (req, res) {
   debug(D, "Backend - Route - GET /creategame.js");
-  debug(
-    D,
-    "Backend - Route - GET /creategame.js - cache.get(req.session.id): ",
-    cache.get(req.session.id)
-  );
+  debug(D, "Backend - Route - GET /creategame.js - cache.get(req.session.id): ", cache.get(req.session.id));
 
   res.render("creategame");
 });
@@ -255,11 +231,7 @@ app.get("/creategame.js", function (req, res) {
 // POST Route /creategame.js -> Redirect: GET auf /lobby.js
 app.post("/creategame.js", function (req, res) {
   debug(D, "Backend - Route - POST /creategame.js");
-  debug(
-    D,
-    "Backend - Route - POST /creategame.js - cache.get(req.session.id): ",
-    cache.get(req.session.id)
-  );
+  debug(D, "Backend - Route - POST /creategame.js - cache.get(req.session.id): ", cache.get(req.session.id));
 
   var session_data = cache.get(req.session.id);
 
@@ -273,11 +245,7 @@ app.post("/creategame.js", function (req, res) {
 
     session_data.username = params.get("username");
 
-    debug(
-      D,
-      "Backend - Route - POST /creategame.js - Object.keys(gamedata.lobbies).length",
-      Object.keys(gamedata.lobbies).length
-    );
+    debug(D, "Backend - Route - POST /creategame.js - Object.keys(gamedata.lobbies).length", Object.keys(gamedata.lobbies).length);
 
     var lobbyindex = Object.keys(gamedata.lobbies).length;
 
@@ -285,9 +253,7 @@ app.post("/creategame.js", function (req, res) {
       id: req.session.id,
       lobbyname: params.get("lobbyname"),
       teamA: {
-        players: [
-          { id: req.session.id, name: params.get("username"), pos: [] }
-        ],
+        players: [{ id: req.session.id, name: params.get("username"), pos: [] }],
         score: 0,
         gadgets: {
           bombe: 0,
@@ -315,11 +281,7 @@ app.post("/creategame.js", function (req, res) {
     gamedata.lobbies.push(newgame_data);
 
     debug(D, "Backend - Route - POST /creategame.js - gamedata", gamedata);
-    debug(
-      D,
-      "Backend - Route - POST /creategame.js - gamedata.lobbies[0].teamA",
-      gamedata.lobbies[0].teamA
-    );
+    debug(D, "Backend - Route - POST /creategame.js - gamedata.lobbies[0].teamA", gamedata.lobbies[0].teamA);
 
     cache.put(req.session.id, session_data);
 
@@ -333,11 +295,7 @@ app.post("/creategame.js", function (req, res) {
 // GET Route /lobbyoverview.js -> PUG: creategame.pug
 app.get("/lobbyoverview.js", function (req, res) {
   debug(D, "Backend - Route - GET /lobbyoverview.js");
-  debug(
-    D,
-    "Backend - Route - GET /lobbyoverview.js - cache.get(req.session.id): ",
-    cache.get(req.session.id)
-  );
+  debug(D, "Backend - Route - GET /lobbyoverview.js - cache.get(req.session.id): ", cache.get(req.session.id));
 
   res.render("lobbyoverview");
 });
@@ -345,11 +303,7 @@ app.get("/lobbyoverview.js", function (req, res) {
 // POST Route /lobbyoverview.js -> Redirect: GET auf /lobby.js
 app.post("/lobbyoverview.js", function (req, res) {
   debug(D, "Backend - Route - POST /lobbyoverview.js");
-  debug(
-    D,
-    "Backend - Route - POST /lobbyoverview.js - cache.get(req.session.id): ",
-    cache.get(req.session.id)
-  );
+  debug(D, "Backend - Route - POST /lobbyoverview.js - cache.get(req.session.id): ", cache.get(req.session.id));
 
   var session_data = cache.get(req.session.id);
 
@@ -373,11 +327,7 @@ app.post("/lobbyoverview.js", function (req, res) {
     debug(D, "Backend - Route - POST /lobbyoverview.js - addplayer", addplayer);
 
     var lobbyindex = getLobby(lobbyid)[0];
-    debug(
-      D,
-      "Backend - Route - POST /lobbyoverview.js - lobbyindex[0]",
-      lobbyindex
-    );
+    debug(D, "Backend - Route - POST /lobbyoverview.js - lobbyindex[0]", lobbyindex);
 
     // TODO Wenn lobby nicht gefunden abfangen
 
@@ -388,11 +338,7 @@ app.post("/lobbyoverview.js", function (req, res) {
 		console.dir(gamedata.lobbies[0].teamA.players[1]);
 		 */
 
-    debug(
-      D,
-      "Backend - Route - POST /lobbyoverview.js - game.getAllPlayers(getLobby(lobbyid)[1])",
-      game.getAllPlayers(getLobby(lobbyid)[1])
-    );
+    debug(D, "Backend - Route - POST /lobbyoverview.js - game.getAllPlayers(getLobby(lobbyid)[1])", game.getAllPlayers(getLobby(lobbyid)[1]));
 
     //mqttclient.publish("game",JSON.stringify(game.getAllPlayers(getLobby(lobbyid)[1])));
 
@@ -408,11 +354,7 @@ app.post("/lobbyoverview.js", function (req, res) {
 // GET Route /lobby.js -> PUG: lobby.pug
 app.get("/lobby.js", function (req, res) {
   debug(D, "Backend - Route - GET /lobby.js");
-  debug(
-    D,
-    "Backend - Route - GET /lobby.js - cache.get(req.session.id): ",
-    cache.get(req.session.id)
-  );
+  debug(D, "Backend - Route - GET /lobby.js - cache.get(req.session.id): ", cache.get(req.session.id));
 
   res.render("lobby");
 });
@@ -420,11 +362,7 @@ app.get("/lobby.js", function (req, res) {
 // POST Route /lobby.js -> Redirect: GET auf /game.js
 app.post("/lobby.js", function (req, res) {
   debug(D, "Backend - Route - POST /lobby.js");
-  debug(
-    D,
-    "Backend - Route - POST /lobby.js - cache.get(req.session.id): ",
-    cache.get(req.session.id)
-  );
+  debug(D, "Backend - Route - POST /lobby.js - cache.get(req.session.id): ", cache.get(req.session.id));
 
   // TEMP RENDERT LOBBY!!!
   res.render("lobby");
@@ -438,11 +376,7 @@ app.post("/lobby.js", function (req, res) {
 // GET Route /game.js -> PUG: game.pug
 app.get("/game.js", function (req, res) {
   debug(D, "Backend - Route - GET /game.js");
-  debug(
-    D,
-    "Backend - Route - GET /game.js - cache.get(req.session.id): ",
-    cache.get(req.session.id)
-  );
+  debug(D, "Backend - Route - GET /game.js - cache.get(req.session.id): ", cache.get(req.session.id));
 
   res.render("game");
 });
@@ -493,11 +427,7 @@ async function onMessage(topic, message) {
 
   var jsm = JSON.parse(message);
   //debug(D, "Backend - MQTT - Funktion - onMessage - jsm: ", jsm);
-  debug(
-    D,
-    "Backend - MQTT - Funktion - onMessage - JSON.parse(message): ",
-    JSON.parse(message)
-  );
+  debug(D, "Backend - MQTT - Funktion - onMessage - JSON.parse(message): ", JSON.parse(message));
   debug(D, "Backend - MQTT - Funktion - onMessage - topic: ", topic);
 
   var response = { status: "", payload: [] };
@@ -507,11 +437,7 @@ async function onMessage(topic, message) {
 	 */
 
   if (ntopic[1] == "lobby") {
-    debug(
-      D,
-      "Backend - MQTT - Funktion - onMessage - get_mqtt_lobbies(): ",
-      get_mqtt_lobbies()
-    );
+    debug(D, "Backend - MQTT - Funktion - onMessage - get_mqtt_lobbies(): ", get_mqtt_lobbies());
     mqttclient.publish("lobby", JSON.stringify(get_mqtt_lobbies()));
   } else if (ntopic[1] == "game") {
     if (jsm.status == "getnames") {
@@ -546,16 +472,8 @@ function get_mqtt_lobbies() {
     lobbies: []
   };
 
-  debug(
-    D,
-    "Backend - MQTT - Funktion - get_mqtt_lobbies - lobbys: ",
-    mqtt_lobbies
-  );
-  debug(
-    D,
-    "Backend - MQTT - Funktion - get_mqtt_lobbies - mqtt lobbyanzahl: ",
-    Object.keys(gamedata.lobbies).length
-  );
+  debug(D, "Backend - MQTT - Funktion - get_mqtt_lobbies - lobbys: ", mqtt_lobbies);
+  debug(D, "Backend - MQTT - Funktion - get_mqtt_lobbies - mqtt lobbyanzahl: ", Object.keys(gamedata.lobbies).length);
 
   var temp_lobby = { lobby: { name: "", id: "" } };
   for (var i = 0; i < Object.keys(gamedata.lobbies).length; i++) {
@@ -566,11 +484,7 @@ function get_mqtt_lobbies() {
     mqtt_lobbies.lobbies.push(temp_lobby.lobby);
   }
 
-  debug(
-    D,
-    "Backend - MQTT - Funktion - get_mqtt_lobbies - lobbys: ",
-    mqtt_lobbies
-  );
+  debug(D, "Backend - MQTT - Funktion - get_mqtt_lobbies - lobbys: ", mqtt_lobbies);
   return mqtt_lobbies;
 }
 
