@@ -1,0 +1,64 @@
+html
+	head
+		title GeoInformatik Geländespiel
+		link(rel='stylesheet', href='css/style.css')
+
+		script(src="/lib/ol.js")
+		script(src="client.js")
+
+	body
+		h2 GeoInformatik Geländespiel
+		//div#map.map(style="height:820px; width: 820px;")
+		//a(method="get" class='button' href="http://192.168.0.90/default_owntracks_config.txt" download="config.otrc") Download
+
+			
+
+
+		form(onsubmit="download_config(this['name'].value, this['text'].value)")
+			input(type="text" name="name" value="test.txt")
+			br
+			textarea(name="text")
+			br
+			input(type="submit" value="Download Owntracks Config")
+
+
+		div(class='header')
+			div(class='headerbox')
+				include header.pug
+			div(class='menu')
+				- var url_anmelden = "creategame.js";
+				a(href='/' + url_anmelden class='button') Neues Spiel
+				|
+				|
+				- var url_registrieren = "joingame.js";
+				a(href='/' + url_registrieren class='button') Spiel beitreten
+				|
+				|
+				div(class='right')
+					| Hier sollte es landen!
+
+					output #{erg}
+
+
+				//- Hier kommt das include script hin, damit geprüft wird,
+				//- ob der user angemeldet ist
+
+
+
+
+		div(class='content')
+			div(class='half left')
+				div#pizza(class='container')
+					h2 myPizza, der freundliche Pizzaladen in deiner Stadt!
+					p
+					| Wir verwenden nur beste Zutaten für unsere Pizzen!
+
+			div(class='half left')
+				div#alexa(class='container')
+					h2 Bestelle auch mit Amazon Alexa!
+					p
+					| Sag einfach "IBS Pizzabestellung" und es geht los ...
+
+		div#info
+
+

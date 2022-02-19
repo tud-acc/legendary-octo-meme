@@ -1,0 +1,41 @@
+html
+    head
+        title GeoInformatik Geländespiel
+        link(rel='stylesheet', href='css/style.css')
+
+        script(src="/lib/ol.js")
+
+    body
+        h2 Spiel erstellen
+        //div#map.map(style="height:820px; width: 820px;")
+        //a(method="get" class='button' href="http://192.168.0.90/default_owntracks_config.txt" download="config.otrc") Download
+
+        div(class='header')
+            div(class='headerbox')
+                include header.pug
+
+        h2 Spiel erstellen
+
+        form(method="POST" onsubmit="setowncookie()")
+            |username
+            input(type="text" name="username" required)
+            br
+            |lobbyname
+            input(type="text" name="lobbyname" required)
+            br
+            input(type="submit" class='button center blue' value="Spiel erstellen")
+
+        | Input-Mode :
+        span#inputmode
+
+        div#map.map(style="height:800; width: 1200;")
+        button(type='button' class='button blue' onclick='switchInputMode(1)') Spielfeld zeichnen
+        button(type='button' class='button blue' onclick='fetchRecommendedPoints()') Suche Flaggenpunte
+        button(type='button' class='button blue' onclick='switchInputMode(2)') Flaggen setzen
+        button(type='button' class='button red' onclick='resetBorder()') Spielfeld zurücksetzen
+        button(type='button' class='button red' onclick='resetFlags()') Flaggen zurücksetzen
+
+
+        div#info
+
+

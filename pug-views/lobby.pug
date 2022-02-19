@@ -1,0 +1,32 @@
+html
+    head
+        title GeoInformatik Geländespiel
+        link(rel='stylesheet', href='css/style.css')
+
+        script
+            include ../scripts/sub_lobby.js
+
+
+    body(onload="onload_body_lobby()")
+
+        //div#map.map(style="height:820px; width: 820px;")
+        //a(method="get" class='button' href="http://192.168.0.90/default_owntracks_config.txt" download="config.otrc") Download
+
+        div(class='header')
+            div(class='headerbox')
+                include header.pug
+
+        h2#lobbyname Lobby 
+
+        div#lobbynames
+
+        div#teamA
+        br
+        div#teamB
+
+        div#startbutton
+
+        button(onclick="leave_lobby()" type="button" class="button center blue") Lobby verlassen
+        //input(type="button" class='button center blue' value="Lobby verlassen")
+
+        div#info

@@ -1,0 +1,80 @@
+
+async function getdata(){
+	var response = await fetch("/data.js");
+	var content = await response.text();
+	
+	var json_data = JSON.parse(content);
+	console.log(json_data);
+	return json_data;
+}
+
+
+
+var map;
+var json_data;
+window.onload = async function() {
+	
+	json_data = await getdata();
+	
+	//var neue_coord = ol.proj.transform(json_data, 'EPSG:4326', 'EPSG:3857');
+
+
+	
+	const vectorSource = new ol.source.Vector({
+		features: new ol.format.GeoJSON().readFeatures(json_data,{featureProjection: 'EPSG:3857'}),
+		//dataProjection: 'EPSG:4326',
+		//featureProjection: 'EPSG:3857'
+	});
+	
+	
+
+
+	const vectorLayer = new ol.layer.Vector({
+	  source: vectorSource,
+	  style: lineStyle/*,
+		format: new ol.format.GeoJSON({
+			internalProjection: new ol.proj.Projection("EPSG:3857"),
+			externalProjection: new ol.proj.Projection("EPSG:4326")
+		}),
+		*/
+	});
+	
+	/*
+	
+	var vectorLayer = new ol.layer.Vector({
+		source: new ol.source.Vector({})});
+		
+		*/
+
+	var street = new ol.layer.Tile({
+		source: new ol.source.XYZ({
+				url: 'https://a.tile.openstreetmap.de/{z}/{x}/{y}.png'
+		})
+	});
+
+	
+	
+	
+	
+	
+	var pos = ol.proj.fromLonLat([10.933,50.820]);
+	map = new ol.Map({
+		target: 'map',
+		layers: [street,vectorLayer],
+		view: new ol.View({center: pos,zoom: 6})
+	});
+	
+}
+
+function lineStyle (w) {
+	const colors = ["red", "blue"];
+	return new ol.style.Style({
+	stroke: new ol.style.Stroke({
+		color: colors[w.getId()],
+		width: 5
+	}),});
+}
+
+
+
+

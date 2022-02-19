@@ -1,0 +1,28 @@
+html
+    head
+        title GeoInformatik Geländespiel
+        link(rel='stylesheet', href='css/style.css')
+
+        script(src="/lib/ol.js")
+
+
+    body
+        //div#map.map(style="height:820px; width: 820px;")
+        //a(method="get" class='button' href="http://192.168.0.90/default_owntracks_config.txt" download="config.otrc") Download
+
+        div(class='header')
+            div(class='headerbox')
+                include header.pug
+
+        h2 Spiel beitreten
+
+
+        form(method="POST")
+            | username
+            input(type="text" name="username" required)
+            br
+            input(type="submit" class='button center blue' value="Spiel beitreten")
+
+
+        div#info
+

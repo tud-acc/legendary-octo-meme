@@ -1,0 +1,133 @@
+/* Mobil */
+@media screen and (min-width: 600px) {
+  .half {
+    width: 100%;
+  }
+  .third {
+    width: 100%;
+  }
+  .twothird {
+    width: 100%;
+  }
+}
+
+/* Small Desktop / Tablet */
+@media screen and (min-width: 600px) {
+  .half {
+    width: 100%;
+  }
+  .third {
+    width: 66.666%;
+  }
+  .twothird {
+    width: 100%;
+  }
+}
+
+/* Desktop */
+@media screen and (min-width: 1200px) {
+  .half {
+    width: 50% !important;
+  }
+  .third {
+    width: 33.333% !important;
+  }
+  .twothird {
+    width: 66.666% !important;
+  }
+}
+
+.container {
+  padding: 8px 12px;
+  margin-top: 8px;
+}
+
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
+.center {
+  margin: auto;
+}
+
+/*
+input {
+  margin: 4px;
+  padding: 8px;
+  display: block;
+  border: 1px solid #ccc;
+  width: 90%;
+}
+*/
+
+
+.button {
+  border: none;
+  display: inline-block;
+  padding: 8px 16px;
+  vertical-align: middle;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  background-color: inherit;
+  text-align: center;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.button:hover {
+  background-color: #ccc;
+}
+
+.menu {
+  background-color: #ee7752;
+  color: #fff;
+}
+
+.card {
+  background-color: #fff;
+  border: 1px solid #ccc;
+}
+
+.blue {
+  background-color: #118ab2;
+  color: #fff;
+}
+.red {
+  background-color: #db4f4f;
+  color: #fff;
+}
+
+.round {
+  border-radius: 50%;
+}
+
+.marging-left16 {
+  margin-left: 16px;
+}
+
+.logo {
+  max-height: 50px;
+}
+
+.brandname {
+  /* background-color: #ebe8e1; */
+  color: #000000;
+  font-size: 30px;
+  font-family: "Lucida Handwriting";
+}
+
+.headerbox {
+  max-height: 100px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100% !important;
+}
+th,
+td {
+  padding: 4px;
+  text-align: left !important;
+}
