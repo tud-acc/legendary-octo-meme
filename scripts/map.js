@@ -86,12 +86,12 @@ var vl_Perks = new ol.layer.Vector({
 // MapSetup Spiel erstellen
 function mapSetupCreateGame() {
   // Erstelle OpenLayers Map
-  var pos = ol.proj.fromLonLat(startCoord);
+  var pos = ol.proj.fromLonLat(STARTCOORD);
   MAP = new ol.Map({
     target: "map",
     layers: [tl_osm, vl_Border, vl_RecommendedPoints, vl_Player, vl_Flags, vl_Perks],
     view: new ol.View({
-      center: STARTCOORD,
+      center: pos,
       zoom: ZOOMLVL
     })
   });
