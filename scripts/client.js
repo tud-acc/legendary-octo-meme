@@ -47,11 +47,14 @@ function switchInputMode(mode){
 // Setze Spielfeld zurück
 function resetBorder(){
 	BORDERS = [];
+	// map.js
 	clearBorder();
+	resetFlags();
 }
 // setze Flaggen zurück
 function resetFlags(){
 	FLAGS = [];
+	// map.js
 	redrawFlags();
 }
 
