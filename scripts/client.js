@@ -101,6 +101,10 @@ function useScan() {
   if (GADGETS_TEAM.scan - 1 < 1) {
     document.getElementById("btn_scan").disabled = true;
   }
+  let payload_0 = {
+    lobbyId: getCookie("lobbyid")
+    // TeAM
+  };
   // ToDo:
   // sende ans backend
 }
@@ -189,6 +193,16 @@ function setowncookie() {
   }
   var mapdata = createGameData();
   document.getElementById("hidden").value = mapdata;
+
+  if (FLAGS == "") {
+    alert("keine flaggen gesetzt");
+  }
+  if (BORDERS.length < 3) {
+    alert("borders");
+  }
+  if (RECOMMENDED == "") {
+    alert("keine rec points");
+  }
 }
 
 function getSessionID() {
