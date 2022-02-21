@@ -1,18 +1,14 @@
+function onload_body_lobby() {
+  //reset_callback_lobbyuebersicht();
 
+  if (getCookie("lobbyid") == null) {
+    setCookie("lobbyid", getSessionID(), 1);
+  }
 
-function onload_body_lobby(){
+  if (getCookie("lobbyid") == getSessionID()) {
+    alert("gleiche lobby und session id");
+    document.getElementById("startbutton").innerHTML = '<button class="button blue" type="button">Spiel starten!</button>';
+  }
 
-    //reset_callback_lobbyuebersicht();
-
-    if(getCookie("lobbyid") == null){
-        setCookie("lobbyid", getSessionID(), 1);
-    }
-
-
-    mqtt_sub("game");
-
+  mqtt_sub("game");
 }
-
-
-
-

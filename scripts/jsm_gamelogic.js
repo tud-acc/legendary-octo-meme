@@ -200,7 +200,7 @@ function getAllPlayers(lobby) {
   let playersB = [];
 
   lobby.teamA.players.forEach((p) => {
-    playersA.push(p.pane);
+    playersA.push(p.name);
   });
 
   lobby.teamB.players.forEach((p) => {
