@@ -105,6 +105,7 @@ async function tx_game(status, payload) {
   var request = { status: "", payload: [] };
   request.status = status;
   request.payload = payload;
+  alert("im tx game");
   await message.send(JSON.stringify(request));
 }
 

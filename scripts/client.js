@@ -136,7 +136,7 @@ function switchTeam() {
 // rückgabe als json Objekt
 function createGameData() {
   let newGameData = {
-    lobbyid: getCookie("lobbyid"),
+    //lobbyid: getCookie("lobbyid"),
     gamearea: BORDERS,
     flags: [],
     recommendedPoints: RECOMMENDED,
