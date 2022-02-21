@@ -111,8 +111,9 @@ function useScan() {
 }
 
 function switchTeam() {
+  console.log(getCookie("lobbyid"));
   let payload_0 = {
-    lobby: getCookie("lobbyid"),
+    lobbyid: getCookie("lobbyid"),
     playerid: getSessionID()
   };
   tx_game("switchteam", [payload_0]);
