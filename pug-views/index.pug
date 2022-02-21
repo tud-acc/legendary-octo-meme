@@ -26,11 +26,11 @@ html
 				include header.pug
 			div(class='menu')
 				- var url_anmelden = "creategame.js";
-				a(href='/' + url_anmelden class='button' onclick="return is_in_lobby()") Neues Spiel
+				a(href='/' + url_anmelden class='button' onclick="return redirect_lobby_game_check()") Neues Spiel
 				|
 				|
 				- var url_registrieren = "joingame.js";
-				a(href='/' + url_registrieren class='button' onclick="return is_in_lobby()") Spiel beitreten
+				a(href='/' + url_registrieren class='button' onclick="return redirect_lobby_game_check()") Spiel beitreten
 				|
 				|
 				div(class='right')

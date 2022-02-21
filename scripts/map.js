@@ -161,8 +161,13 @@ function clickHandler(coord) {
       break;
 
     case 2: // setze Flagge
-      FLAGS.push(coord);
-      redrawFlags();
+      if (isInGameArea(coord)) {
+        FLAGS.push(coord);
+        redrawFlags();
+      } else {
+        alert("Gewählter Punkt liegt auserhalb des Spielfeldes.");
+      }
+
       break;
 
     case 3: // setze Bombe
@@ -194,6 +199,11 @@ function isInGameArea(coord) {
   });
   border.push(BORDERS[0]);
   let gameArea = new ol.geom.Polygon([border]);
+
+  if (gameArea.intersectsCoordinate(coord)) {
+    return true;
+  }
+  return false;
 }
 
 //------------------------------------------------------------------//
@@ -325,15 +335,10 @@ function redrawGadgets() {
 }
 
 function drawRecommendedPoints() {
-  let border = [];
-  BORDERS.forEach((b) => {
-    border.push(b);
-  });
-  border.push(BORDERS[0]);
-  let gameArea = new ol.geom.Polygon([border]);
-
+  let rec = [];
   RECOMMENDED.forEach((n) => {
-    if (gameArea.intersectsCoordinate(n)) {
+    if (isInGameArea(n)) {
+      rec.push(n);
       let p = new ol.Feature({
         featureProjection: "EPSG:3857",
         type: "icon",
@@ -342,6 +347,7 @@ function drawRecommendedPoints() {
       vl_RecommendedPoints.getSource().addFeature(p);
     }
   });
+  RECOMMENDED = rec;
 }
 
 // Zeichne Perk Radius (sammelbar oder explosion)

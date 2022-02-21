@@ -186,10 +186,17 @@ async function init() {
   //mqtt_sub();
 }
 
-function is_in_lobby() {
-  if (getCookie("inlobby") == true) {
-    window.location.replace("http://193.197.230.34/lobby.js");
+function redirect_lobby_game_check() {
+  alert("redirect lobby game check aufgerufen");
+
+  if (getCookie("inlobby") == "true") {
+    alert("redirect lobby");
+    window.location.replace("/lobby.js");
+  } else if (getCookie("ingame") == "true") {
+    alert("redirect game");
+    window.location.replace("/game.js");
   }
+  return true;
 }
 
 // Setzt einen Cookie mit der lobbyid, falls dieser noch nicht vorhanden ist
