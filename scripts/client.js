@@ -116,7 +116,7 @@ function switchTeam() {
     lobbyid: getCookie("lobbyid"),
     playerid: getSessionID()
   };
-  if (getCookie("team") == "A") {
+  if (getCookie("team") === "A") {
     setCookie("team", "B", 1);
   } else {
     setCookie("team", "A", 1);
