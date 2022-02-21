@@ -194,7 +194,7 @@ function setowncookie() {
   var mapdata = createGameData();
   document.getElementById("hidden").value = mapdata;
 
-  if (FLAGS == "") {
+  if (FLAGS.length == 0) {
     alert("keine flaggen gesetzt");
     return false;
   }
@@ -202,7 +202,7 @@ function setowncookie() {
     alert("borders");
     return false;
   }
-  if (RECOMMENDED == "") {
+  if (RECOMMENDED.length == 0) {
     alert("keine rec points");
     return false;
   }
