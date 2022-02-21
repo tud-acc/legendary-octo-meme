@@ -102,8 +102,8 @@ function useScan() {
     document.getElementById("btn_scan").disabled = true;
   }
   let payload_0 = {
-    lobbyId: getCookie("lobbyid")
-    // TeAM
+    lobbyid: getCookie("lobbyid"),
+    team: "" // ToDo Team von Cookie
   };
   // ToDo:
   // sende ans backend
@@ -196,12 +196,15 @@ function setowncookie() {
 
   if (FLAGS == "") {
     alert("keine flaggen gesetzt");
+    return false;
   }
   if (BORDERS.length < 3) {
     alert("borders");
+    return false;
   }
   if (RECOMMENDED == "") {
     alert("keine rec points");
+    return false;
   }
 }
 
