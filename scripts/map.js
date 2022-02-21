@@ -106,7 +106,7 @@ function mapSetupCreateGame() {
 }
 
 // MapSetup beim Seitenaufruf
-function mapSetup(startCoord, zoomLevel) {
+function mapSetup() {
   // Erstelle OpenLayers Map
   var pos = ol.proj.fromLonLat(startCoord);
   MAP = new ol.Map({

@@ -9,18 +9,15 @@ var GADGETS_TEAM;
 var SCORE;
 
 // StartKoordinaten OL Canvas:
-const startCoord = [10.057, 48.8676];
-const zoomLevel = 16;
+var startCoord = [10.057, 48.8676];
+var zoomLevel = 16;
 
 // Seitenaufruf, Karte erstellen
 /*
 window.onload = async function() {
 	//mapSetup(startCoord, zoomLevel);
-
-
 }
-
- */
+*/
 
 // Schalte zwischen Eingabemodi um
 function switchInputMode(mode) {
@@ -72,6 +69,8 @@ function parseGameData(json) {
   GADGETS = json.gadgets;
   GADGETS_TEAM = json.teamGadgets;
   SCORE = json.score;
+  startCoord = json.startCoord;
+  zoomLevel = json.zoomLevel;
 
   // redraw VectorLayers
   redrawBorder();
@@ -278,16 +277,6 @@ function download_config(filename, text) {
   element.click();
 
   document.body.removeChild(element);
-}
-
-function lineStyle(w) {
-  const colors = ["red", "blue"];
-  return new ol.style.Style({
-    stroke: new ol.style.Stroke({
-      color: colors[w.getId()],
-      width: 5
-    })
-  });
 }
 
 /**
