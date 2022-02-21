@@ -554,3 +554,95 @@ function debug(print, msg, vars) {
     console.log("");
   }
 }
+
+// publish Gamedata an Team A&B
+//
+function publishGameData(lobby) {
+  // erzeuge Spieldaten für Team A & B
+  let dataA = game.buildClientJson(lobby, "A");
+  let dataB = game.buildClientJson(lobby, "B");
+
+  mqttclient.publish(); // TODO: TOPIC ANPASSEN ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ <<<<<<
+}
+
+// aktualisiere Spielerposition
+// lobbyId, team = 'A' ; 'B' / playerId / pos = [lon, lat]
+function updatePosition(lobbyId, team, playerId, pos) {
+  let lobby = getLobby(lobbyId);
+
+  let gres = game.updatePlayerPos(lobby[1], team, playerId, pos);
+
+  // spawne zufällig neues Gadget chance 1:20
+  if (randomIntFromInterval(0, 20) == 1) {
+    gres = game.spawnGadget(gres);
+  }
+
+  // schreibe lobbydaten & pubish via mqtt
+  gamedata.lobbies[lobby[0]] = gres;
+  publishGameData(gres);
+}
+
+// starte Scan für das Team
+// lobbyId / team = 'A' ; 'B'
+function startScan(lobbyId, team) {
+  let lobby = getLobby(lobbyId);
+
+  let gres = game.useScan(lobby[1], team);
+
+  // schreibe lobbydaten & pubish via mqtt
+  gamedata.lobbies[lobby[0]] = gres[0];
+  publishGameData(gres[0]);
+
+  //starte ScanTimer
+  startScanTimer(lobbyId, gres[1], team);
+}
+
+// Platziere bombe
+// lobbyID / team = 'A' ; 'B' / coord = [lon, lat]
+function placeBomb(lobbyId, team, coord) {
+  let lobby = getLobby(lobbyId);
+
+  // lobbyNew = [lobby, bomid, bombtime]
+  let gres = game.setBomb(lobby[1], team, coord);
+
+  // schreibe lobbydaten & pubish via mqtt
+  gamedata.lobbies[lobby[0]] = gres[0];
+  publishGameData(gres[0]);
+
+  // starte BombTimer
+  startBombTimer(lobbyId, gres[2], gres[1]);
+}
+
+// starte Bombentimer beim bombe setzen
+// ist zeit abgelaufen wird lobby aktualisiert und wieder an alle gesendet
+async function startBombTimer(lobbyId, time, bombId) {
+  // warte (time) ms
+  await new Promise((r) => setTimeout(r, time));
+  let lobby = getLobby(lobbyId);
+
+  let gres = game.explodeBomb(lobby[1], bombId);
+
+  // schreibe lobbydaten & pubish via mqtt
+  gamedata.lobbies[lobby[0]] = gres;
+  publishGameData(gres);
+}
+
+// starte Scantimer beim Scan benutzen
+// ist zeit abgelaufen, wird lobby aktualisiert und wieder an alle gesendet
+async function startScanTimer(lobbyId, time, team) {
+  // warte (time) ms
+  await new Promise((r) => setTimeout(r, time));
+  let lobby = getLobby(lobbyId);
+
+  let gres = game.resetScan(lobby[1], team);
+
+  // schreibe lobbydaten & pubish via mqtt
+  gamedata.lobbies[lobby[0]] = gres;
+  publishGameData(gres);
+}
+
+// erstelle zufallszahl zwischen min und max
+function randomIntFromInterval(min, max) {
+  // min and max included
+  return Math.floor(Math.random() * (max - min + 1) + min);
+}
