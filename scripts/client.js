@@ -77,7 +77,7 @@ function parseGameData(json) {
 
   // erstaufruf --> Mapsetup aufrufen
   if (startCoord.length == 0) {
-    startCoord = json.startCoord;
+    startCoord = json.startCoords;
     zoomLevel = json.zoomLevel;
     mapSetup();
   }
