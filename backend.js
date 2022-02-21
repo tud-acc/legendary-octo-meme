@@ -419,7 +419,7 @@ console.log("Backend - Server started");
   mqttclient = mqtt.connect("mqtt://127.0.0.1", {}).on("connect", function () {
     debug(D, "Connected");
     mqttclient.on("message", onMessage);
-    mqttclient.subscribe("mqttfetch/+/+/+/fr/+");
+    mqttclient.subscribe("mqttfetch/#"); //mqttfetch/+/+/+/+/fr/+
   });
 })();
 
