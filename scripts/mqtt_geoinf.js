@@ -58,33 +58,46 @@ function sub_game() {
 }
 
 function rx_game(topic, data) {
-  console.log("gamedata received");
-  console.log(data);
+  if (data.status == "mapsetup") {
+    console.log("rx: mapsetup");
+    console.log(data);
 
-  var lobbynameindexteamA = data.payload[0].teamA.length;
-  var lobbynameindexteamB = data.payload[0].teamB.length;
+    parseGameData(data.payload[0]);
+  } else if (data.status == "getnames") {
+    console.log("rx: getnames");
+    console.log(data);
 
-  console.dir(lobbynameindexteamA);
-  console.dir(lobbynameindexteamB);
+    var lobbynameindexteamA = data.payload[0].teamA.length;
+    var lobbynameindexteamB = data.payload[0].teamB.length;
 
-  var lobbynamesteamA = "";
-  var lobbynamesteamB = "";
+    console.dir(lobbynameindexteamA);
+    console.dir(lobbynameindexteamB);
 
-  for (var i = 0; i < lobbynameindexteamA; i++) {
-    lobbynamesteamA += data.payload[0].teamA[i] + "<br>";
+    var lobbynamesteamA = "";
+    var lobbynamesteamB = "";
+
+    for (var i = 0; i < lobbynameindexteamA; i++) {
+      lobbynamesteamA += data.payload[0].teamA[i] + "<br>";
+    }
+    for (var i = 0; i < lobbynameindexteamB; i++) {
+      lobbynamesteamB += data.payload[0].teamB[i] + "<br>";
+    }
+
+    console.dir(lobbynamesteamA);
+    console.dir(lobbynamesteamB);
+
+    //document.getElementById("lobbynames").innerHTML = lobbynamesteamA + lobbynamesteamB;
+
+    document.getElementById("teamA").innerHTML = lobbynamesteamA;
+
+    document.getElementById("teamB").innerHTML = lobbynamesteamB;
+  } else if (data.status == "update") {
+    console.log("rx: update");
+    console.log(data);
+  } else if (data.status == "update") {
+  } else if (data.status == "update") {
+  } else if (data.status == "update") {
   }
-  for (var i = 0; i < lobbynameindexteamB; i++) {
-    lobbynamesteamB += data.payload[0].teamB[i] + "<br>";
-  }
-
-  console.dir(lobbynamesteamA);
-  console.dir(lobbynamesteamB);
-
-  //document.getElementById("lobbynames").innerHTML = lobbynamesteamA + lobbynamesteamB;
-
-  document.getElementById("teamA").innerHTML = lobbynamesteamA;
-
-  document.getElementById("teamB").innerHTML = lobbynamesteamB;
 }
 
 async function tx_game(status, payload) {

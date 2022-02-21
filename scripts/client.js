@@ -11,7 +11,7 @@ var GADGETS_TEAM;
 var SCORE;
 
 // StartKoordinaten OL Canvas:
-var startCoord = [10.057, 48.8676];
+var startCoord = []; //[10.057, 48.8676];
 var zoomLevel = 16;
 
 // Seitenaufruf, Karte erstellen
@@ -73,8 +73,13 @@ function parseGameData(json) {
   GADGETS = json.gadgets;
   GADGETS_TEAM = json.teamGadgets;
   SCORE = json.score;
-  startCoord = json.startCoord;
-  zoomLevel = json.zoomLevel;
+
+  // erstaufruf --> Mapsetup aufrufen
+  if (startCoord.length == 0) {
+    startCoord = json.startCoord;
+    zoomLevel = json.zoomLevel;
+    mapSetup();
+  }
 
   // redraw VectorLayers
   redrawBorder();
@@ -190,14 +195,6 @@ async function getdata() {
   return json_data;
 }
 
-function leave_lobby() {
-  console.dir("stigler-debug4");
-
-  post("/node.js", { status: "lobby_abandoned" });
-
-  //window.location.replace("/node.js");
-}
-
 async function init() {
   //mqtt_sub();
 }
@@ -223,6 +220,30 @@ function game_setcookie() {
   alert("set ingame cookie true");
   setCookie("inlobby", "false", 1);
   setCookie("ingame", "true", 1);
+}
+
+function delete_cookie() {
+  eraseCookie("inlobby");
+  eraseCookie("inagem");
+  eraseCookie("team");
+}
+
+function leave_lobby() {
+  console.dir("leave lobby button");
+
+  if (getCookie("lobbyid") == getSessionID()) {
+    tx_game("destroylobby", [{ lobbyid: lobbyid, playerid: getSessionID() }]);
+    delete_cookie();
+
+    window.location.replace("/node.js");
+  } else {
+    tx_game("leavelobby", [{ lobbyid: lobbyid }]);
+    delete_cookie();
+    window.location.replace("/node.js");
+  }
+
+  //post("/node.js", { status: "lobby_abandoned" });
+  //window.location.replace("/node.js");
 }
 
 // Setzt einen Cookie mit der lobbyid, falls dieser noch nicht vorhanden ist

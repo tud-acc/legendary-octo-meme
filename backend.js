@@ -450,7 +450,9 @@ async function onMessage(topic, message) {
       response.status = "playernames";
       response.payload.push(lobbyobj);
       mqttclient.publish("game", JSON.stringify(response));
-    } else if ((jsm.status = "switchteam")) {
+
+      // SwitchTeam
+    } else if (jsm.status == "switchteam") {
       debug(D, "Backend - MQTT - Funktion - onMessage - jsm.payload[0].lobbyid: ", jsm.payload[0].lobbyid);
       let lobbyid = jsm.payload[0].lobbyid;
       debug(D, "Backend - MQTT - Funktion - onMessage - jsm.payload[0].playerid: ", jsm.payload[0].playerid);
@@ -471,6 +473,62 @@ async function onMessage(topic, message) {
       response.payload.push(lobbyjson);
 
       mqttclient.publish("game", JSON.stringify(response));
+    }
+    // mapsetup
+    else if (jsm.status == "mapsetup") {
+      let lobby = getLobby(jsm.payload[0].lobbyid); //lobby[0] = id lobby[1]=jobbyJSON
+
+      let data = game.buildClientJson(lobby[1], jsm.payload[0].team);
+      response.status = "mapsetup";
+      response.payload.push(data);
+
+      mqttclient.publish(topic.replace("fr", "to"), JSON.stringify(response));
+    }
+    // positionsUpdate
+    else if (jsm.status == "updatepos") {
+      let lobby = getLobby(jsm.payload[0].lobbyid); //lobby[0] = id lobby[1]=jobbyJSON
+      let team = jsm.payload[0].team;
+      let pid = jsm.payload[0].playerid;
+      let pos = jsm.payload[0].pos;
+
+      // lobby updaten --> Playerposition anpassen
+      let newLobby = game.updatePlayerPos(lobby[1], team, pid, pos);
+
+      // lobby wieder abspeichern
+      gamedata.lobbies[lobby[0]] = newLobby;
+
+      // update an clients pushen
+      publishGameData(lobby);
+      //
+    } else if (jsm.status == "setbomb") {
+      let lobby = getLobby(jsm.payload[0].lobbyid); //lobby[0] = id lobby[1]=jobbyJSON
+      let team = jsm.payload[0].team;
+      let pos = jsm.payload[0].pos;
+
+      // platziere Bombe : res = [lobby, bombid, timer]
+      let res = game.setBomb(lobby[1], team, pos);
+
+      // lobby wieder abspeichern
+      gamedata.lobbies[lobby[0]] = res[0];
+
+      // update an clients pushen
+      publishGameData(res[0]);
+
+      //bombtimer starten
+      startBombTimer(jsm.payload[0].lobbyid, res[2], res[1]);
+      //
+    } else if (jsm.status == "usescan") {
+      startScan(jsm.payload[0].lobbyid, jsm.payload[0].team);
+      //
+    } else if (jsm.status == "leavelobby") {
+      // leave lobby
+      let lobbyindex = jsm.payload[0].lobbyid;
+      debug(D, "Backend - MQTT - Funktion - onMessage - lobbyindex: ", lobbyindex);
+
+      let playerid = jsm.payload[0].playerid;
+      debug(D, "Backend - MQTT - Funktion - onMessage - playerid: ", playerid);
+    } else if (jsm.status == "destroylobby") {
+      // destory lobby
     }
   }
 }
@@ -583,7 +641,15 @@ function publishGameData(lobby) {
   let dataA = game.buildClientJson(lobby, "A");
   let dataB = game.buildClientJson(lobby, "B");
 
-  mqttclient.publish(); // TODO: TOPIC ANPASSEN ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ <<<<<<
+  let topic = "mqttfetch/game/" + lobby.id;
+  let response = {
+    status: "update",
+    payload: [dataA]
+  };
+
+  mqttclient.publish(topic + "/A", JSON.stringify(response));
+  response.payload = [dataB];
+  mqttclient.publish(topic + "/B", JSON.stringify(response));
 }
 
 // aktualisiere Spielerposition

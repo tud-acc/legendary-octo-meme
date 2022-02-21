@@ -241,6 +241,24 @@ function playerSwapTeam(lobby, playerId) {
   }
 }
 
+// Loescht einen Spieler aus der uebergebenen lobby
+function deleteplayer(lobby, playerId) {
+  let player;
+
+  let plist = lobby.teamA.players;
+  for (let i = 0; i < plist.length; i++) {
+    if (plist[i].id == playerId) {
+      delete lobby.teamA.players[i];
+    }
+  }
+  plist = lobby.teamB.players;
+  for (let i = 0; i < plist.length; i++) {
+    if (plist[i].id == playerId) {
+      delete lobby.teamB.players[i];
+    }
+  }
+}
+
 // Platziert neues zufälliges Gadget zum Sammeln
 // gibt aktualisierte lobby zurück
 function spawnGadget(lobby) {

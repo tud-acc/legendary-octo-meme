@@ -147,7 +147,7 @@ function clickHandler(coord) {
       payload_0 = {
         lobbyid: getCookie("lobbyid"),
         team: getCookie("team"),
-        playerId: getSessionID(),
+        playerid: getSessionID(),
         pos: coord
       };
       tx_game("updatepos", [payload_0]);
