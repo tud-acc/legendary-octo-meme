@@ -107,6 +107,7 @@ function useScan() {
   };
   // ToDo:
   // sende ans backend
+  tx_game("startScan", [payload_0]);
 }
 
 // erstelle gamedata fürs Backend @Spiel-erstellen
@@ -185,6 +186,8 @@ async function init() {
   //mqtt_sub();
 }
 
+// Setzt einen Cookie mit der lobbyid, falls dieser noch nicht vorhanden ist
+// Checkt, ob auf der Map Flaggen, Borders und Recommended Points gesetzt sind
 function setowncookie() {
   console.dir("setowncookie vor if");
   if (getCookie("lobbyid") != getSessionID()) {
