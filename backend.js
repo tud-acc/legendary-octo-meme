@@ -442,6 +442,7 @@ async function onMessage(topic, message) {
     debug(D, "Backend - MQTT - Funktion - onMessage - get_mqtt_lobbies(): ", get_mqtt_lobbies());
     mqttclient.publish("lobby", JSON.stringify(get_mqtt_lobbies()));
   } else if (ntopic[1] == "game") {
+    // Getnames Lobby
     if (jsm.status == "getnames") {
       debug(D, "Backend - MQTT - Funktion - onMessage - status getnames: ");
       let lobbyid = jsm.payload[0].lobbyid;
@@ -449,7 +450,7 @@ async function onMessage(topic, message) {
       let lobbyobj = game.getAllPlayers(getLobby(lobbyid)[1]);
       response.status = "playernames";
       response.payload.push(lobbyobj);
-      mqttclient.publish("game", JSON.stringify(response));
+      mqttclient.publish("game/" + lobbyid, JSON.stringify(response));
 
       // SwitchTeam
     } else if (jsm.status == "switchteam") {
