@@ -367,12 +367,12 @@ app.post("/lobby.js", function (req, res) {
   debug(D, "Backend - Route - POST /lobby.js - cache.get(req.session.id): ", cache.get(req.session.id));
 
   // TEMP RENDERT LOBBY!!!
-  res.render("lobby");
+  //res.render("lobby");
 
-  /*
-	res.writeHead(303, { Location: "/game.js" });
-	res.end();
-	 */
+  res.render("game");
+
+  //res.writeHead(303, { Location: "/game.js" });
+  //res.end();
 });
 
 // GET Route /game.js -> PUG: game.pug
