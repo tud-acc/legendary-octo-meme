@@ -277,8 +277,8 @@ app.post("/creategame.js", function (req, res) {
       gamearea: mapdata.gamearea,
       flags: mapdata.flags,
       recommendesPoints: mapdata.recommendedPoints,
-      startCoords: [],
-      zoomlevel: 10,
+      startCoords: mapdata.startCoords,
+      zoomlevel: mapdata.zoomLevel,
       gadgets: []
     };
 
