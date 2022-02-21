@@ -13,6 +13,7 @@ async function mqtt_sub(topic) {
     message.set_callback(topic, rx_lobby, true);
     await message.send({ hallo: "pisse" });
   } else {
+    // sub game
     message.set_callback(topic, rx_game, true);
     var payload = {
       status: "getnames",
@@ -41,17 +42,10 @@ function rx_lobby(topic, data) {
   var lobbystring = "<form method='POST' onsubmit='sub_game()'>";
 
   for (var i = 0; i < lobbyindex; i++) {
-    lobbystring +=
-      "<input type='radio' value='" +
-      data.lobbies[i].id +
-      "' name='lobbyid' id='" +
-      i +
-      "'>";
-    lobbystring +=
-      "<label for='" + i + "'> " + data.lobbies[i].name + "</label><br>";
+    lobbystring += "<input type='radio' value='" + data.lobbies[i].id + "' name='lobbyid' id='" + i + "'>";
+    lobbystring += "<label for='" + i + "'> " + data.lobbies[i].name + "</label><br>";
   }
-  lobbystring +=
-    "<input type='submit' class='button center blue' value='Lobby beitreten'>";
+  lobbystring += "<input type='submit' class='button center blue' value='Lobby beitreten'>";
   lobbystring += "</form>";
   console.dir(lobbystring);
   document.getElementById("lobbyuebersicht").innerHTML = lobbystring;

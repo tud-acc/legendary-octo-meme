@@ -369,10 +369,10 @@ app.post("/lobby.js", function (req, res) {
   // TEMP RENDERT LOBBY!!!
   //res.render("lobby");
 
-  res.render("game");
+  //res.render("game");
 
-  //res.writeHead(303, { Location: "/game.js" });
-  //res.end();
+  res.writeHead(303, { Location: "/game.js" });
+  res.end();
 });
 
 // GET Route /game.js -> PUG: game.pug

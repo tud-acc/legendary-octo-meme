@@ -218,6 +218,7 @@ function joingame_setcookie() {
 }
 
 function game_setcookie() {
+  alert("set ingame cookie true");
   setCookie("inlobby", "false", 1);
   setCookie("ingame", "true", 1);
 }
