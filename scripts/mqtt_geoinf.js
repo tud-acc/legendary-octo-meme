@@ -14,6 +14,7 @@ async function mqtt_sub(topic) {
     await message.send({ hallo: "pisse" });
   } else {
     message.set_callback(topic, rx_game, true);
+    alert("subbed " + topic);
   }
   //await message.send(payload);
 }
