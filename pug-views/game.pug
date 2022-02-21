@@ -2,12 +2,15 @@ html
     head
         title GeoInformatik Geländespiel
         link(rel='stylesheet', href='css/style.css')
+        script
+            include ../scripts/sub_game.js
 
 
     body(onload="onload_body_game()")
         div(class='header')
             div(class='headerbox')
                 include header.pug
+                
 
         h2 GeoGame Emulator 
         | Input-Mode : 

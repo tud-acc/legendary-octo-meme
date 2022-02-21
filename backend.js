@@ -474,7 +474,7 @@ async function onMessage(topic, message) {
 
       response.payload.push(lobbyjson);
 
-      mqttclient.publish("game", JSON.stringify(response));
+      mqttclient.publish("game/" + lobbyid, JSON.stringify(response));
     }
     // mapsetup
     else if (jsm.status == "mapsetup") {

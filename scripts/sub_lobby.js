@@ -11,5 +11,6 @@ async function onload_body_lobby() {
   }
   alert("mqtt sub game");
   await mqtt_sub("game/" + getCookie("lobbyid"));
+
   tx_game("getnames", [{ lobbyid: getCookie("lobbyid") }]);
 }
