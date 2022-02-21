@@ -450,6 +450,20 @@ async function onMessage(topic, message) {
       response.status = "playernames";
       response.payload.push(lobbyobj);
       mqttclient.publish("game", JSON.stringify(response));
+    } else if ((jsm.status = "switchteam")) {
+      let lobbyid = jsm.payload[0].lobbyid;
+      let playerid = jsm.payload[0].playerid;
+      let lobbyindex = getLobby(lobbyid)[0];
+
+      let lobbyjson = getLobby(lobbyid)[1];
+      lobbyjson = game.playerSwapTeam(lobbyjson, playerid);
+      gamedata.lobbies[lobbyindex] = lobbyjson;
+
+      response.status = "playernames";
+
+      response.payload.push(lobbyjson);
+
+      mqttclient.publish("game", JSON.stringify(response));
     }
   }
 }

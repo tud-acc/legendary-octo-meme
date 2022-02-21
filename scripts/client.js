@@ -107,7 +107,15 @@ function useScan() {
     lobbyid: getCookie("lobbyid"),
     team: getCookie("team")
   };
-  tx_game("startScan", [payload_0]);
+  tx_game("startscan", [payload_0]);
+}
+
+function switchTeam() {
+  let payload_0 = {
+    lobby: getCookie("lobbyid"),
+    playerid: getSessionID()
+  };
+  tx_game("switchteam", [payload_0]);
 }
 
 // erstelle gamedata fürs Backend @Spiel-erstellen
@@ -199,6 +207,12 @@ function redirect_lobby_game_check() {
     return false;
   }
   return true;
+}
+
+function joingame_setlobbycookie() {
+  if (getCookie("inlobby") == false) {
+    setCookie("inlobby", true, 1);
+  }
 }
 
 // Setzt einen Cookie mit der lobbyid, falls dieser noch nicht vorhanden ist

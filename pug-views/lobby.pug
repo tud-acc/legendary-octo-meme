@@ -12,7 +12,7 @@ html
         //div#map.map(style="height:820px; width: 820px;")
         //a(method="get" class='button' href="http://192.168.0.90/default_owntracks_config.txt" download="config.otrc") Download
 
-        div(class='header')
+        div(class='')
             div(class='headerbox')
                 include header.pug
 
@@ -20,12 +20,15 @@ html
 
         div#lobbynames
 
+        h4 Team-A
         div#teamA
         br
+        h4 Team-B
         div#teamB
 
         div#startbutton
 
+        button(onclick="switchTeam()" type="button" class="button center blue") Team wechseln
         button(onclick="leave_lobby()" type="button" class="button center blue") Lobby verlassen
         //input(type="button" class='button center blue' value="Lobby verlassen")
 
