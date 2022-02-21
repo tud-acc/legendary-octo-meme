@@ -134,8 +134,6 @@ function mapSetup() {
   //redrawPlayerPos();
 }
 
-// TODO: playerid, team aus cookies lesen
-
 // Klick Handler beim klicken in die Karte
 function clickHandler(coord) {
   console.log("Click on: " + coord);
@@ -152,7 +150,7 @@ function clickHandler(coord) {
         playerId: getSessionID(),
         pos: coord
       };
-      tx_game("updatePos", [payload_0]);
+      tx_game("updatepos", [payload_0]);
       break;
 
     case 1: // setze Mapgrenze
@@ -176,7 +174,7 @@ function clickHandler(coord) {
         team: getCookie("team"),
         coord: coord
       };
-      tx_game("setBomb", [payload_0]);
+      tx_game("setbomb", [payload_0]);
       break;
     default: // do Nothing
   }

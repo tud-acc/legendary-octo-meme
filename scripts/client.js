@@ -116,6 +116,11 @@ function switchTeam() {
     lobbyid: getCookie("lobbyid"),
     playerid: getSessionID()
   };
+  if (getCookie("team") == "A") {
+    setCookie("team", "B", 1);
+  } else {
+    setCookie("team", "A", 1);
+  }
   tx_game("switchteam", [payload_0]);
 }
 
@@ -196,24 +201,25 @@ async function init() {
 }
 
 function redirect_lobby_game_check() {
-  alert("redirect lobby game check aufgerufen");
-
   if (getCookie("inlobby") == "true") {
-    alert("redirect lobby");
     window.location.replace("/lobby.js");
     return false;
   } else if (getCookie("ingame") == "true") {
-    alert("redirect game");
     window.location.replace("/game.js");
     return false;
   }
   return true;
 }
 
-function joingame_setlobbycookie() {
-  if (getCookie("inlobby") == false) {
-    setCookie("inlobby", true, 1);
-  }
+function joingame_setcookie() {
+  setCookie("inlobby", "true", 1);
+  setCookie("team", "A", 1);
+  setCookie("ingame", "false", 1);
+}
+
+function game_setcookie() {
+  setCookie("inlobby", "false", 1);
+  setCookie("ingame", "true", 1);
 }
 
 // Setzt einen Cookie mit der lobbyid, falls dieser noch nicht vorhanden ist
