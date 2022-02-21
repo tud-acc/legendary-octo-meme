@@ -447,6 +447,7 @@ async function onMessage(topic, message) {
       debug(D, "Backend - MQTT - Funktion - onMessage - status getnames: ");
       let lobbyid = jsm.payload[0].lobbyid;
       debug(D, "Backend - MQTT - Funktion - onMessage - lobbyid: ", lobbyid);
+
       let lobbyobj = game.getAllPlayers(getLobby(lobbyid)[1]);
       response.status = "playernames";
       response.payload.push(lobbyobj);

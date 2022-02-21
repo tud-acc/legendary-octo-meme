@@ -63,8 +63,8 @@ function rx_game(topic, data) {
     console.log(data);
 
     parseGameData(data.payload[0]);
-  } else if (data.status == "getnames") {
-    console.log("rx: getnames");
+  } else if (data.status == "playernames") {
+    console.log("rx: playernames");
     console.log(data);
 
     var lobbynameindexteamA = data.payload[0].teamA.length;
