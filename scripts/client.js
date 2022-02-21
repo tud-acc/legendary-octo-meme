@@ -232,6 +232,9 @@ function setowncookie() {
   }
 
   setCookie("inlobby", true, 1);
+  setCookie("team", "A", 1);
+  setCookie("ingame", "false", 1);
+
   var mapdata = createGameData();
   document.getElementById("hidden").value = mapdata;
 
