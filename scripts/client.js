@@ -38,6 +38,8 @@ function switchInputMode(mode) {
     case 3:
       element.textContent = "Bombe platzieren";
       break;
+
+    default: //doNothing
   }
 }
 

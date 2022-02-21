@@ -13,13 +13,7 @@ async function mqtt_sub(topic) {
     message.set_callback(topic, rx_lobby, true);
     await message.send({ hallo: "pisse" });
   } else {
-    // sub game
     message.set_callback(topic, rx_game, true);
-    var payload = {
-      status: "getnames",
-      payload: [{ lobbyid: getCookie("lobbyid") }]
-    };
-    await message.send(payload);
   }
   //await message.send(payload);
 }
