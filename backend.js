@@ -456,6 +456,7 @@ async function onMessage(topic, message) {
       let lobbyindex = getLobby(lobbyid)[0];
 
       let lobbyjson = getLobby(lobbyid)[1];
+      debug(D, "Backend - MQTT - Funktion - onMessage - lobbyid: ", lobbyjson);
       lobbyjson = game.playerSwapTeam(lobbyjson, playerid);
       gamedata.lobbies[lobbyindex] = lobbyjson;
 
