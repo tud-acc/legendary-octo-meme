@@ -481,14 +481,15 @@ async function onMessage(topic, message) {
     // mapsetup
     else if (jsm.status == "mapsetup") {
       let lobby = getLobby(jsm.payload[0].lobbyid); //lobby[0] = id lobby[1]=jobbyJSON
+      let team = jsm.payload[0].team;
+      //debug(D, "Backend - MQTT - Funktion - onMessage - mapsetup: ", lobby);
 
-      debug(D, "Backend - MQTT - Funktion - onMessage - mapsetup: ", lobby);
-
-      let data = game.buildClientJson(lobby[1], jsm.payload[0].team);
+      let data = game.buildClientJson(lobby[1], team);
       response.status = "mapsetup_b";
       response.payload.push(data);
 
-      mqttclient.publish(topic.replace("fr", "to"), JSON.stringify(response));
+      //mqttclient.publish(topic.replace("fr", "to"), JSON.stringify(response));
+      mqttclient.publish("game/" + jsm.payload[0].lobbyid + "/" + team, JSON.stringify(response));
     }
     // positionsUpdate
     else if (jsm.status == "updatepos") {

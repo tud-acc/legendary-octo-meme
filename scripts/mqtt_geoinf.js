@@ -64,6 +64,7 @@ function rx_game(topic, data) {
     console.log(data);
 
     parseGameData(data.payload[0]);
+    console.log("rx_game nach parsegamedata");
   } else if (data.status == "playernames") {
     console.log("rx: playernames");
     console.log(data);
