@@ -189,6 +189,8 @@ function buildClientJson(lobby, team) {
   json.teamGadgets = teamGadgets;
   json.score = teamData.score;
   json.gadgets = lobby.gadgets;
+  json.startCoords = lobby.startCoords;
+  json.zoomLevel = lobby.zoomLevel;
 
   return json;
 }
