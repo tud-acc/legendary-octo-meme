@@ -192,9 +192,11 @@ function redirect_lobby_game_check() {
   if (getCookie("inlobby") == "true") {
     alert("redirect lobby");
     window.location.replace("/lobby.js");
+    return false;
   } else if (getCookie("ingame") == "true") {
     alert("redirect game");
     window.location.replace("/game.js");
+    return false;
   }
   return true;
 }
