@@ -451,9 +451,12 @@ async function onMessage(topic, message) {
       response.payload.push(lobbyobj);
       mqttclient.publish("game", JSON.stringify(response));
     } else if ((jsm.status = "switchteam")) {
+      debug(D, "Backend - MQTT - Funktion - onMessage - jsm.payload[0].lobbyid: ", jsm.payload[0].lobbyid);
       let lobbyid = jsm.payload[0].lobbyid;
+      debug(D, "Backend - MQTT - Funktion - onMessage - jsm.payload[0].playerid: ", jsm.payload[0].playerid);
       let playerid = jsm.payload[0].playerid;
       let lobbyindex = getLobby(lobbyid)[0];
+      debug(D, "Backend - MQTT - Funktion - onMessage - lobbyindex: ", lobbyindex);
 
       let lobbyjson = getLobby(lobbyid)[1];
       debug(D, "Backend - MQTT - Funktion - onMessage - lobbyid: ", lobbyjson);
