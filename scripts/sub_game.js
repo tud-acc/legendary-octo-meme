@@ -1,4 +1,4 @@
-function onload_body_game() {
+async function onload_body_game() {
   //reset_callback_lobbyuebersicht();
 
   /*
@@ -13,6 +13,6 @@ function onload_body_game() {
 */
   var topic = "game/" + getCookie("lobbyid") + "/" + getCookie("team");
   alert(topic);
-  mqtt_sub("game/" + getCookie("lobbyid") + "/" + getCookie("team"));
+  await mqtt_sub("game/" + getCookie("lobbyid") + "/" + getCookie("team"));
   tx_game("mapsetup", [{ lobbyid: getCookie("lobbyid"), team: getCookie("team") }]);
 }

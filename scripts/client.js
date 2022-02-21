@@ -232,12 +232,12 @@ function leave_lobby() {
   console.dir("leave lobby button");
 
   if (getCookie("lobbyid") == getSessionID()) {
-    tx_game("destroylobby", [{ lobbyid: lobbyid, playerid: getSessionID() }]);
+    tx_game("destroylobby", [{ lobbyid: getCookie("lobbyid"), playerid: getSessionID() }]);
     delete_cookie();
 
     window.location.replace("/node.js");
   } else {
-    tx_game("leavelobby", [{ lobbyid: lobbyid }]);
+    tx_game("leavelobby", [{ lobbyid: getCookie("lobbyid") }]);
     delete_cookie();
     window.location.replace("/node.js");
   }
