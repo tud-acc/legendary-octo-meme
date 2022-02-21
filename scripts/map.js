@@ -139,12 +139,20 @@ function mapSetup() {
 // Klick Handler beim klicken in die Karte
 function clickHandler(coord) {
   console.log("Click on: " + coord);
+  let payload_0;
 
   switch (INPUTMODE) {
     case 0: // setze PlayerPos
       PLAYERPOS = coord;
       redrawPlayerPos();
-      //TODO: mqtt call update Playerpos
+
+      payload_0 = {
+        lobbyid: getCookie("lobbyid"),
+        team: getCookie("team"),
+        playerId: getSessionID(),
+        pos: coord
+      };
+      tx_game("updatePos", [payload_0]);
       break;
 
     case 1: // setze Mapgrenze
@@ -158,16 +166,15 @@ function clickHandler(coord) {
       break;
 
     case 3: // setze Bombe
-    //TODO: tx_game
+      payload_0 = {
+        lobbyid: getCookie("lobbyid"),
+        team: getCookie("team"),
+        coord: coord
+      };
+      tx_game("setBomb", [payload_0]);
+      break;
+    default: // do Nothing
   }
-
-  /*
-    let s = "";
-    BORDERS.forEach(b => {
-        s += " " + b[1] + " " + b[0]
-    })
-    console.log(s)
-    */
 }
 
 // frage Aktuelle Kartenposition und zoomstufe ab
@@ -178,6 +185,15 @@ function getCurrentMapView() {
   let center = ol.proj.toLonLat(view.getCenter());
   let zoom = Math.ceil(view.getZoom());
   return [center, zoom];
+}
+
+function isInGameArea(coord) {
+  let border = [];
+  BORDERS.forEach((b) => {
+    border.push(b);
+  });
+  border.push(BORDERS[0]);
+  let gameArea = new ol.geom.Polygon([border]);
 }
 
 //------------------------------------------------------------------//

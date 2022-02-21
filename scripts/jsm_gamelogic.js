@@ -5,6 +5,8 @@
 */
 
 var BOMBID = 0;
+var BOMBTIMER = 10000; // Zeit in ms bis zur explosion
+var SCANTIMER = 20000; // Zeit in ms Dauer des Scans
 
 //------------------------------------------------------------------//
 //  externe Funktionen
@@ -14,6 +16,25 @@ function update(lobby) {
   let l = checkFlags(lobby);
   l = checkGadgets(l);
   return l;
+}
+
+// aktualisiere position des Spielers
+function updatePlayerPos(lobby, team, playerId, pos) {
+  let pTeam = team == "A" ? lobby.teamA : lobby.teamB;
+
+  pTeam.players.forEach((p) => {
+    if (p.id == playerId) {
+      p.position = pos;
+
+      if (team == "A") {
+        lobby.teamA = pTeam;
+      } else {
+        lobby.teamB = pTeam;
+      }
+      return update(lobby);
+    }
+  });
+  return lobby; // falls spieler nicht gefunden
 }
 
 // Setzt eine Bombe für das entsprechende Team
@@ -52,7 +73,7 @@ function setBomb(lobby, team, coord) {
 
   lobby.gadgets.push(bomb);
 
-  return lobby;
+  return [lobby, BOMBID, BOMBTIMER];
 }
 
 // explodiere bombe mit id bombId
@@ -95,7 +116,7 @@ function useScan(lobby, team) {
     lobby.teamB.scan = true;
   }
 
-  return lobby;
+  return [lobby, SCANTIMER];
 }
 
 // Deaktiviere Scan bei einem Team
@@ -168,8 +189,6 @@ function buildClientJson(lobby, team) {
   json.teamGadgets = teamGadgets;
   json.score = teamData.score;
   json.gadgets = lobby.gadgets;
-  json.startCoord = lobby.startCoord;
-  json.zoomLevel = lobby.zoomLevel;
 
   return json;
 }
@@ -180,13 +199,8 @@ function getAllPlayers(lobby) {
   let playersA = [];
   let playersB = [];
 
-  console.dir(lobby);
-  console.dir("nach lobby");
-  console.dir(lobby.teamA.players[0]);
-  console.dir("nach players");
-
   lobby.teamA.players.forEach((p) => {
-    playersA.push(p.name);
+    playersA.push(p.pane);
   });
 
   lobby.teamB.players.forEach((p) => {
@@ -227,10 +241,34 @@ function playerSwapTeam(lobby, playerId) {
   }
 }
 
+// Platziert neues zufälliges Gadget zum Sammeln
+// gibt aktualisierte lobby zurück
+function spawnGadget(lobby) {
+  let random = Math.round(Math.random()); // zufällig 0 oder 1
+  let type = random ? "scan" : "bomb"; // 0= scan 1= bombe
+
+  let size = lobby.recommendesPoints.length;
+  let pos = lobby.recommendesPoints[Math.floor(Math.random() * size)];
+
+  let gadget = {
+    type: type,
+    collectable: true, // false = explodierende bombe
+    coord: pos,
+    radius: 50, // collectable true = Radius zum sammeln else Explosionsradius
+    time: 10000, // zeit bis explosion in ms
+    owner: 0,
+    id: -1
+  };
+
+  lobby.gadgets.push(gadget);
+  return lobby;
+}
+
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // Modulexport
 module.exports = {
   update,
+  updatePlayerPos,
   setBomb,
   explodeBomb,
   useScan,
@@ -345,6 +383,7 @@ function distance(p1, p2) {
   //console.log(d);
   return d * 1000; // umrechung in Meter
 }
+
 // umrechnung Grad in Bogenmaß
 function deg2rad(deg) {
   return deg * (Math.PI / 180);

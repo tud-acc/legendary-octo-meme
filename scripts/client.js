@@ -105,10 +105,8 @@ function useScan() {
   }
   let payload_0 = {
     lobbyid: getCookie("lobbyid"),
-    team: "" // ToDo Team von Cookie
+    team: getCookie("team")
   };
-  // ToDo:
-  // sende ans backend
   tx_game("startScan", [payload_0]);
 }
 
@@ -188,6 +186,12 @@ async function init() {
   //mqtt_sub();
 }
 
+function is_in_lobby() {
+  if (getCookie("inlobby") == true) {
+    window.location.replace("http://193.197.230.34/lobby.js");
+  }
+}
+
 // Setzt einen Cookie mit der lobbyid, falls dieser noch nicht vorhanden ist
 // Checkt, ob auf der Map Flaggen, Borders und Recommended Points gesetzt sind
 function setowncookie() {
@@ -196,19 +200,21 @@ function setowncookie() {
     setCookie("lobbyid", getSessionID(), 1);
     console.dir("setowncookie gesetzt");
   }
+
+  setCookie("inlobby", true, 1);
   var mapdata = createGameData();
   document.getElementById("hidden").value = mapdata;
 
   if (FLAGS.length == 0) {
-    alert("keine flaggen gesetzt");
+    alert("Keine Flaggen gesetzt. Bitte Flaggen platzieren.");
     return false;
   }
   if (BORDERS.length < 3) {
-    alert("borders");
+    alert("Bitte eine Spielfeldbegrenzung setzen.");
     return false;
   }
   if (RECOMMENDED.length == 0) {
-    alert("keine rec points");
+    alert("Bitte nach zeichnen der Spielfeldbegrenzung nach empfohlenen Punkten suchen.");
     return false;
   }
 }
