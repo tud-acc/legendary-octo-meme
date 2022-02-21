@@ -59,8 +59,8 @@ function sub_game() {
 }
 
 function rx_game(topic, data) {
-  if (data.status == "mapsetup") {
-    console.log("rx: mapsetup");
+  if (data.status == "mapsetup_b") {
+    console.log("rx: mapsetup_b");
     console.log(data);
 
     parseGameData(data.payload[0]);

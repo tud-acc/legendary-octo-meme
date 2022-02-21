@@ -483,7 +483,7 @@ async function onMessage(topic, message) {
       debug(D, "Backend - MQTT - Funktion - onMessage - mapsetup: ", lobby);
 
       let data = game.buildClientJson(lobby[1], jsm.payload[0].team);
-      response.status = "mapsetup";
+      response.status = "mapsetup_b";
       response.payload.push(data);
 
       mqttclient.publish(topic.replace("fr", "to"), JSON.stringify(response));
