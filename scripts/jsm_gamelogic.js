@@ -293,7 +293,8 @@ module.exports = {
   resetScan,
   buildClientJson,
   getAllPlayers,
-  playerSwapTeam
+  playerSwapTeam,
+  deleteplayer
 };
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 

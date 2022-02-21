@@ -64,6 +64,7 @@ function resetFlags() {
 
 // verarbeite Spieldaten (JSON)
 function parseGameData(json) {
+  console.log("parseGameData" + json);
   BORDERS = json.gameArea;
   FLAGS = json.flags;
   FLAGS_TEAM = json.flagsTeam;

@@ -480,6 +480,8 @@ async function onMessage(topic, message) {
     else if (jsm.status == "mapsetup") {
       let lobby = getLobby(jsm.payload[0].lobbyid); //lobby[0] = id lobby[1]=jobbyJSON
 
+      debug(D, "Backend - MQTT - Funktion - onMessage - mapsetup: ", lobby);
+
       let data = game.buildClientJson(lobby[1], jsm.payload[0].team);
       response.status = "mapsetup";
       response.payload.push(data);
@@ -524,11 +526,15 @@ async function onMessage(topic, message) {
       //
     } else if (jsm.status == "leavelobby") {
       // leave lobby
-      let lobbyindex = jsm.payload[0].lobbyid;
-      debug(D, "Backend - MQTT - Funktion - onMessage - lobbyindex: ", lobbyindex);
+      let lobbyid = jsm.payload[0].lobbyid;
+      debug(D, "Backend - MQTT - Funktion - onMessage - leavelobby - lobbyid: ", lobbyid);
 
       let playerid = jsm.payload[0].playerid;
-      debug(D, "Backend - MQTT - Funktion - onMessage - playerid: ", playerid);
+      debug(D, "Backend - MQTT - Funktion - onMessage - leavelobby - playerid: ", playerid);
+
+      var lobby = getLobby(lobbyid);
+      game.deleteplayer(lobby[1], playerid);
+      debug(D, "Backend - MQTT - Funktion - onMessage - leavelobby - nach deleteplayer: ");
     } else if (jsm.status == "destroylobby") {
       // destory lobby
     }
