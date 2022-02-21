@@ -7,7 +7,7 @@ function onload_body_lobby() {
 
   if (getCookie("lobbyid") == getSessionID()) {
     alert("gleiche lobby und session id");
-    document.getElementById("startbutton").innerHTML = '<button class="button blue" type="button">Spiel starten!</button>';
+    document.getElementById("startbutton").innerHTML = '<br><a href="/game.js" class="button blue" type="button">Spiel starten!</a>';
   }
 
   mqtt_sub("game");
