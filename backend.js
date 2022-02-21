@@ -251,6 +251,8 @@ app.post("/creategame.js", function (req, res) {
 
     debug(D, "Backend - Route - POST /creategame.js - hidden input string", params.get("hidden"));
 
+    var mapdata = JSON.parse(params.get("hidden"));
+
     var newgame_data = {
       id: req.session.id,
       lobbyname: params.get("lobbyname"),
@@ -272,9 +274,9 @@ app.post("/creategame.js", function (req, res) {
         },
         scan: false
       },
-      gamearea: [[]],
-      flags: [[]],
-      recommendesPoints: [[]],
+      gamearea: mapdata.gamearea,
+      flags: mapdata.flags,
+      recommendesPoints: mapdata.recommendedPoints,
       startCoords: [],
       zoomlevel: 10,
       gadgets: []
