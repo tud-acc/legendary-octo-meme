@@ -9,7 +9,7 @@ function onload_body_lobby() {
     alert("gleiche lobby und session id");
     document.getElementById("startbutton").innerHTML = '<br><a href="/game.js" class="button blue" type="button" onclick="game_setcookie()">Spiel starten!</a>';
   }
-
-  mqtt_sub("game");
+  alert("mqtt sub game");
+  mqtt_sub("game/" + getCookie("lobbyid"));
   tx_game("getnames", [{ lobbyid: getCookie("lobbyid") }]);
 }
