@@ -67,6 +67,7 @@ async function onload_body_lobby() {
       <input type="hidden" name="text" value=` +
     config +
     `><br>
+      <input type="submit" value="Download Owntracks Config">
   </form>`;
 
   await mqtt_sub("game/" + getCookie("lobbyid"));
