@@ -122,7 +122,7 @@ function parseGameData(json) {
   } else {
     document.getElementById("btn_scan").disabled = true;
   }
-  document.getElementById("btn_bomb").innerText = "Nutze Scan [" + GADGETS_TEAM.scan + "]";
+  document.getElementById("btn_scan").innerText = "Nutze Scan [" + GADGETS_TEAM.scan + "]";
 }
 
 // löse Scan aus
