@@ -53,18 +53,18 @@ function setBomb(lobby, team, coord) {
   let owner;
 
   if (team == "A") {
-    if (lobby.teamA.gadgets.bombe < 0) {
+    if (lobby.teamA.gadgets.bombe <= 0) {
       // prüfe ob Team bombe setzen darf
       return lobby;
     }
-    lobby.teamA.gadgeds.bombe--;
+    lobby.teamA.gadgeds.bombe = lobby.teamA.gadgeds.bombe - 1;
     owner = 1;
   } else {
-    if (lobby.teamB.gadgets.bombe < 0) {
+    if (lobby.teamB.gadgets.bombe <= 0) {
       // prüfe ob Team bombe setzen darf
       return lobby;
     }
-    lobby.teamB.gadgets.bombe--;
+    lobby.teamB.gadgeds.bombe = lobby.teamB.gadgeds.bombe - 1;
     owner = 2;
   }
 
