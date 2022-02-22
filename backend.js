@@ -505,7 +505,7 @@ async function onMessage(topic, message) {
       gamedata.lobbies[lobby[0]] = newLobby;
 
       // update an clients pushen
-      publishGameData(lobby);
+      publishGameData(newLobby);
       //
     } else if (jsm.status == "setbomb") {
       let lobby = getLobby(jsm.payload[0].lobbyid); //lobby[0] = id lobby[1]=jobbyJSON

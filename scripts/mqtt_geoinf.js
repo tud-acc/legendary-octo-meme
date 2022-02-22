@@ -99,6 +99,7 @@ function rx_game(topic, data) {
     console.log(data);
   } else if (data.status == "destroylobby_b") {
     console.log("rx_game: destroylobby_b");
+    alert("rx_game: destroylobby_b angekommen");
   } else if (data.status == "update") {
   } else if (data.status == "update") {
   }

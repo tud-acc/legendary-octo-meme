@@ -24,7 +24,7 @@ function updatePlayerPos(lobby, team, playerId, pos) {
 
   pTeam.players.forEach((p) => {
     if (p.id == playerId) {
-      p.position = pos;
+      p.pos = pos;
 
       if (team == "A") {
         lobby.teamA = pTeam;
@@ -87,7 +87,7 @@ function explodeBomb(lobby, bombId) {
       let targetTeam = g[i].owner == 1 ? lobby.teamB : lobby.teamA;
 
       targetTeam.players.forEach((p) => {
-        if (inRange(g[i].radius, g[i].coord, p.position)) {
+        if (inRange(g[i].radius, g[i].coord, p.pos)) {
           targetTeam.score--;
         }
       });
@@ -318,14 +318,14 @@ function checkFlags(lobby) {
 
     // prüfe jeden Spieler in Team A
     lobby.teamA.players.forEach((p) => {
-      if (inRange(50, f.coord, p.position)) {
+      if (inRange(50, f.coord, p.pos)) {
         a++;
       }
     });
 
     // prüfe jeden SPieler in Team B
     lobby.teamB.players.forEach((p) => {
-      if (inRange(50, f.coord, p.position)) {
+      if (inRange(50, f.coord, p.pos)) {
         b++;
       }
     });
@@ -356,7 +356,7 @@ function checkGadgets(lobby) {
   for (let i = 0; i < g.length; i++) {
     // Prüfe alle Spieler aus Team A
     lobby.teamA.players.forEach((p) => {
-      if (inRange(50, g[i].coord, p.position)) {
+      if (inRange(50, g[i].coord, p.pos)) {
         if (g.type == "bomb") {
           lobby.teamA.gadgets.bombe++;
         } else {
@@ -367,7 +367,7 @@ function checkGadgets(lobby) {
     });
     // Prüfe alle Spieler aus Team B
     lobby.teamB.players.forEach((p) => {
-      if (inRange(50, g[i].coord, p.position)) {
+      if (inRange(50, g[i].coord, p.pos)) {
         if (g.type == "bomb") {
           lobby.teamB.gadgets.bombe++;
         } else {
