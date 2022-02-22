@@ -325,7 +325,7 @@ function redrawGadgets() {
       type: "icon",
       geometry: new ol.geom.Point(perk.coord).transform("EPSG:4326", "EPSG:3857")
     });
-    drawPerkRadius(perk.coord, perk.radius, perk.collectable);
+    drawPerkRadius(perk.coord, perk.radius, perk.collectable, perk.owner);
     if (perk.type == "bomb") {
       p.setStyle(f_stylePerkBomb);
     } else {
@@ -352,7 +352,7 @@ function drawRecommendedPoints() {
 }
 
 // Zeichne Perk Radius (sammelbar oder explosion)
-function drawPerkRadius(coord, radius, collectable) {
+function drawPerkRadius(coord, radius, collectable, owner) {
   // Radius umrechnen
   let r = radius / ol.proj.getPointResolution("EPSG:4326", 1, coord, "m");
 
@@ -363,6 +363,9 @@ function drawPerkRadius(coord, radius, collectable) {
   });
   c.setStyle(f_stylePerkCollectable);
   if (!collectable) {
+    if (getCookie("team") == "A" && owner == 1) {
+      c.setStyle(f_stylePerkExplodableTeam);
+    }
     c.setStyle(f_stylePerkExplodable);
   }
   vl_Perks.getSource().addFeature(c);
@@ -541,6 +544,19 @@ function f_stylePerkExplodable(w) {
     }),
     fill: new ol.style.Fill({
       color: "rgba(255,0,0,0.2)"
+    })
+  });
+}
+
+//perk explodable team
+function f_stylePerkExplodableTeam(w) {
+  return new ol.style.Style({
+    stroke: new ol.style.Stroke({
+      color: "blue",
+      width: 3
+    }),
+    fill: new ol.style.Fill({
+      color: "rgba(0,0,0,255.2)"
     })
   });
 }
