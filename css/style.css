@@ -119,7 +119,7 @@ button[disabled] {
 
 .brandname {
   /* background-color: #ebe8e1; */
-  color: #000000;
+  color: #ffffff;
   font-size: 30px;
   font-family: "Lucida Handwriting";
 }
@@ -143,7 +143,7 @@ button[disabled] {
 .header {
   position: relative;
   min-height: 200px;
-  background-image: url("../img/HS_Bild.jpg");
+  background-image: url("https://rawcdn.githack.com/tud-acc/legendary-octo-meme/2c573973b9ea66d60ae35fa628a152ea85b50ec3/img/HS_Bild.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

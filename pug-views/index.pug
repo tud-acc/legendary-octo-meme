@@ -2,16 +2,9 @@ html
 	head
 		title GeoInformatik Geländespiel
 		link(rel='stylesheet', href='css/style.css')
-
 		script(src="/lib/ol.js")
 
-
 	body
-		//div#map.map(style="height:820px; width: 820px;")
-		//a(method="get" class='button' href="http://192.168.0.90/default_owntracks_config.txt" download="config.otrc") Download
-
-		
-
 		div(class='header')
 			div(class='headerbox')
 				include header.pug
@@ -29,30 +22,19 @@ html
 
 					output #{erg}
 
-
-				//- Hier kommt das include script hin, damit geprüft wird,
-				//- ob der user angemeldet ist
-
-
-
-
 		div(class='content')
 			div(class='half left')
 				div#pizza(class='container')
-					h2 GeoInformatik Geländespiel, der freundliche Pizzaladen in deiner Stadt!
+					h2 Willkommen beim Geoinformatik Geländespiel!
 					p
-					| Wir verwenden nur beste Zutaten für unsere GeoInformatik Geländespiel!
-
-
-
-
+					| Drücke "Neues Spiel", um eine neue Lobby zu erstellen
+					| Drücke "Spiel beitreten", um einer bestehenden Lobby beizutreten
 
 			div(class='half left')
 				div#alexa(class='container')
-					h2 Bestelle auch mit Amazon Alexa!
+					h2 Testen Sie auch unsere anderen Websites, wie "IBS Pizza"!
 					p
-					| Sag einfach "GeoInformatik Geländespiel" und es geht los ...
+					| Pizza bestellen mit Freunden? Kein Problem: IBS Pizza
+					| Funktioniert auch mit Amazon Alexa
 
 		div#info
-
-
