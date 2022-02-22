@@ -133,7 +133,7 @@ function useScan() {
     lobbyid: getCookie("lobbyid"),
     team: getCookie("team")
   };
-  tx_game("startscan", [payload_0]);
+  tx_game("usescan", [payload_0]);
 }
 
 function switchTeam() {
