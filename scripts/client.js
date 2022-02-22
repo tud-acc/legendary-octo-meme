@@ -245,6 +245,7 @@ function delete_cookie() {
   eraseCookie("inlobby");
   eraseCookie("ingame");
   eraseCookie("team");
+  eraseCookie("lobbyid");
 }
 
 function leave_lobby() {

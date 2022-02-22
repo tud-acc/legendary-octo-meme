@@ -493,36 +493,20 @@ async function onMessage(topic, message) {
     }
     // positionsUpdate
     else if (jsm.status == "updatepos") {
-      let lobby = getLobby(jsm.payload[0].lobbyid); //lobby[0] = id lobby[1]=jobbyJSON
+      let lobbyid = jsm.payload[0].lobbyid; //lobby[0] = id lobby[1]=jobbyJSON
       let team = jsm.payload[0].team;
       let pid = jsm.payload[0].playerid;
       let pos = jsm.payload[0].pos;
 
-      // lobby updaten --> Playerposition anpassen
-      let newLobby = game.updatePlayerPos(lobby[1], team, pid, pos);
+      updatePosition(lobbyid, team, pid, pos);
 
-      // lobby wieder abspeichern
-      gamedata.lobbies[lobby[0]] = newLobby;
-
-      // update an clients pushen
-      publishGameData(newLobby);
       //
     } else if (jsm.status == "setbomb") {
-      let lobby = getLobby(jsm.payload[0].lobbyid); //lobby[0] = id lobby[1]=jobbyJSON
+      let lobbyid = jsm.payload[0].lobbyid; //lobby[0] = id lobby[1]=jobbyJSON
       let team = jsm.payload[0].team;
       let pos = jsm.payload[0].pos;
 
-      // platziere Bombe : res = [lobby, bombid, timer]
-      let res = game.setBomb(lobby[1], team, pos);
-
-      // lobby wieder abspeichern
-      gamedata.lobbies[lobby[0]] = res[0];
-
-      // update an clients pushen
-      publishGameData(res[0]);
-
-      //bombtimer starten
-      startBombTimer(jsm.payload[0].lobbyid, res[2], res[1]);
+      placeBomb(lobbyid, team, pos);
       //
     } else if (jsm.status == "usescan") {
       startScan(jsm.payload[0].lobbyid, jsm.payload[0].team);
