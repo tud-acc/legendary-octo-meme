@@ -374,6 +374,8 @@ function checkGadgets(lobby) {
         g.splice(i, 1); // entferne gadget aus array da gesammelt
       }
     });
+  }
+  for (let i = 0; i < g.length; i++) {
     // Prüfe alle Spieler aus Team B
     lobby.teamB.players.forEach((p) => {
       if (inRange(50, g[i].coord, p.pos)) {
