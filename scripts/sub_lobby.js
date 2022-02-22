@@ -61,14 +61,21 @@ async function onload_body_lobby() {
     ws: false
   };
 
+  var cd = document.getElementById("configdata");
+  cd.value = config;
+
+  /*
   document.getElementById("konfigfile").innerHTML =
-    `<form onsubmit="download_config(this[name].value, this['text'].value)">
+    `<form onsubmit="download_config(this[name].value, this[` +
+    text +
+    `].value)">
       <input type="hidden" name="name" value="config.otrc"><br>
       <input type="hidden" name="text" value=` +
     config +
     `><br>
       <input type="submit" value="Download Owntracks Config">
   </form>`;
+  */
 
   await mqtt_sub("game/" + getCookie("lobbyid"));
   tx_game("getnames", [{ lobbyid: getCookie("lobbyid") }]);

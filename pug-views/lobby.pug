@@ -21,6 +21,13 @@ html
         |Konfigurationsdatei:
         div#konfigfile
 
+        form(onsubmit="download_config(this['name'].value, this['text'].value)")
+            input(type="hidden" name="name" value="config.otrc")
+            br
+            input#configdata(type="hidden" name="text" value="benis")
+            br
+            input(type="submit" value="Download Owntracks Config")
+
         div#lobbynames
 
         h4 Team-A
