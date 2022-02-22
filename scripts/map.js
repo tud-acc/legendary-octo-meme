@@ -365,8 +365,9 @@ function drawPerkRadius(coord, radius, collectable, owner) {
   if (!collectable) {
     if (getCookie("team") == "A" && owner == 1) {
       c.setStyle(f_stylePerkExplodableTeam);
+    } else {
+      c.setStyle(f_stylePerkExplodable);
     }
-    c.setStyle(f_stylePerkExplodable);
   }
   vl_Perks.getSource().addFeature(c);
 }
