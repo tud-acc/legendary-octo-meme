@@ -243,7 +243,7 @@ function game_setcookie() {
 
 function delete_cookie() {
   eraseCookie("inlobby");
-  eraseCookie("inagem");
+  eraseCookie("ingame");
   eraseCookie("team");
 }
 

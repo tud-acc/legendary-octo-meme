@@ -97,10 +97,14 @@ function rx_game(topic, data) {
   } else if (data.status == "update_b") {
     console.log("rx_game: update");
     console.log(data);
+    parseGameData(data.payload[0]);
   } else if (data.status == "destroylobby_b") {
     console.log("rx_game: destroylobby_b");
 
     alert("rx_game: destroylobby_b angekommen");
+
+    delete_cookie();
+    window.location.replace("/node.js");
   } else if (data.status == "update") {
   } else if (data.status == "update") {
   }
