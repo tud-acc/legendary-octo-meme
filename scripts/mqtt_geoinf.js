@@ -59,15 +59,16 @@ function sub_game() {
 }
 
 function rx_game(topic, data) {
+  console.dir("rx_game:");
+  console.dir("topic: " + topic);
+  console.dir("data: " + data);
+
   if (data.status == "mapsetup_b") {
-    console.log("rx: mapsetup_b");
-    console.log(data);
+    console.log("rx_game: mapsetup_b");
 
     parseGameData(data.payload[0]);
-    console.log("rx_game nach parsegamedata");
-  } else if (data.status == "playernames") {
-    console.log("rx: playernames");
-    console.log(data);
+  } else if (data.status == "playernames_b") {
+    console.log("rx_game: playernames");
 
     var lobbynameindexteamA = data.payload[0].teamA.length;
     var lobbynameindexteamB = data.payload[0].teamB.length;

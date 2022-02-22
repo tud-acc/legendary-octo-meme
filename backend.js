@@ -472,7 +472,7 @@ async function onMessage(topic, message) {
 
       lobbyjson = game.getAllPlayers(lobbyjson);
 
-      response.status = "playernames";
+      response.status = "playernames_b";
 
       response.payload.push(lobbyjson);
 
@@ -537,6 +537,9 @@ async function onMessage(topic, message) {
 
       var lobby = getLobby(lobbyid);
       game.deleteplayer(lobby[1], playerid);
+
+      response.status = "playernames_b";
+
       debug(D, "Backend - MQTT - Funktion - onMessage - leavelobby - nach deleteplayer: ");
     } else if (jsm.status == "destroylobby") {
       // destory lobby

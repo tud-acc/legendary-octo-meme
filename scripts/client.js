@@ -1,6 +1,8 @@
 var INPUTMODE = 0;
 var RECOMMENDED = [];
-var PLAYERPOS, TEAMPOS, ENEMYPOS;
+var PLAYERPOS = [],
+  TEAMPOS,
+  ENEMYPOS;
 var BORDERS = [];
 var FLAGS = [],
   FLAGS_TEAM,
@@ -75,17 +77,33 @@ function parseGameData(json) {
   GADGETS_TEAM = json.teamGadgets;
   SCORE = json.score;
 
+  console.log("Gamedata::");
+  console.log(BORDERS);
+  console.log(FLAGS);
+  console.log(FLAGS_TEAM);
+  console.log(FLAGS_ENEMY);
+  console.log(TEAMPOS);
+  console.log(ENEMYPOS);
+  console.log(GADGETS);
+  console.log(GADGETS_TEAM);
+  console.log(SCORE);
+
   // erstaufruf --> Mapsetup aufrufen
   if (startCoord.length == 0) {
     startCoord = json.startCoords;
     zoomLevel = json.zoomLevel;
+    console.log("call map.js -> Mapsetup");
     mapSetup();
   }
 
   // redraw VectorLayers
+  console.log("draw borders");
   redrawBorder();
+  console.log("draw players");
   redrawPlayerPos();
+  console.log("draw flags");
   redrawFlags();
+  console.log("draw gadgets");
   redrawGadgets();
 
   // update Score
