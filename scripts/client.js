@@ -239,6 +239,13 @@ function joingame_setcookie() {
 function game_setcookie() {
   setCookie("inlobby", "false", 1);
   setCookie("ingame", "true", 1);
+
+  tx_game("startgame", [{ lobbyid: getCookie("lobbyid") }]);
+}
+
+function game_b_setcookie() {
+  setCookie("inlobby", "false", 1);
+  setCookie("ingame", "true", 1);
 }
 
 function delete_cookie() {
@@ -299,7 +306,7 @@ function setowncookie() {
 function getSessionID() {
   console.dir("connect.sid:");
   console.dir(getCookie("connect.sid"));
-
+  q;
   var sid = getCookie("connect.sid");
   sid = sid.split(".");
   console.dir(sid);

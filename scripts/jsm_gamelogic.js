@@ -297,7 +297,8 @@ module.exports = {
   buildClientJson,
   getAllPlayers,
   playerSwapTeam,
-  deleteplayer
+  deleteplayer,
+  spawnGadget
 };
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 

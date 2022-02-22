@@ -105,7 +105,10 @@ function rx_game(topic, data) {
 
     delete_cookie();
     window.location.replace("/node.js");
-  } else if (data.status == "update") {
+  } else if (data.status == "startgame_b") {
+    console.log("rx_game: startgame_b");
+    game_b_setcookie();
+    window.location.replace("/game.js");
   } else if (data.status == "update") {
   }
 }

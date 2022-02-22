@@ -548,6 +548,15 @@ async function onMessage(topic, message) {
       gamedata.lobbies.splice(lobbyindex, 1);
 
       mqttclient.publish("game/" + lobbyid, JSON.stringify(response));
+    } else if (jsm.status == "startgame") {
+      debug(D, "Backend - MQTT - Funktion - onMessage - startgame: ");
+
+      let lobbyid = jsm.payload[0].lobbyid;
+      debug(D, "Backend - MQTT - Funktion - onMessage - leavelobby - lobbyid: ", lobbyid);
+
+      response.status = "startgame_b";
+
+      mqttclient.publish("game/" + lobbyid, JSON.stringify(response));
     }
   }
 }
@@ -679,7 +688,7 @@ function updatePosition(lobbyId, team, playerId, pos) {
   let gres = game.updatePlayerPos(lobby[1], team, playerId, pos);
 
   // spawne zufällig neues Gadget chance 1:20
-  if (randomIntFromInterval(0, 20) == 1) {
+  if (randomIntFromInterval(0, 20) == 2) {
     gres = game.spawnGadget(gres);
   }
 
