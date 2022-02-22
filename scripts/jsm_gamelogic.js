@@ -268,7 +268,7 @@ function spawnGadget(lobby) {
   let random = Math.round(Math.random()); // zufällig 0 oder 1
   let type = random ? "scan" : "bomb"; // 0= scan 1= bombe
 
-  let size = lobby.recommendesPoints.length;
+  let size = lobby.recommendesPoints.length - 1;
   let pos = lobby.recommendesPoints[Math.floor(Math.random() * size)];
 
   let gadget = {
