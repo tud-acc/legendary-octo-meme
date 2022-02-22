@@ -504,7 +504,7 @@ async function onMessage(topic, message) {
     } else if (jsm.status == "setbomb") {
       let lobbyid = jsm.payload[0].lobbyid; //lobby[0] = id lobby[1]=jobbyJSON
       let team = jsm.payload[0].team;
-      let pos = jsm.payload[0].pos;
+      let pos = jsm.payload[0].coord;
 
       placeBomb(lobbyid, team, pos);
       //
