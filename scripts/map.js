@@ -557,7 +557,7 @@ function f_stylePerkExplodableTeam(w) {
       width: 3
     }),
     fill: new ol.style.Fill({
-      color: "rgba(0,0,0,255.2)"
+      color: "rgba(0,0,255,0.2)"
     })
   });
 }

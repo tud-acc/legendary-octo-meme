@@ -115,12 +115,14 @@ function parseGameData(json) {
   } else {
     document.getElementById("btn_bomb").disabled = true;
   }
+  document.getElementById("btn_bomb").innerText = "Setze Bombe [" + GADGETS_TEAM.bombe + "]";
 
   if (GADGETS_TEAM.scan > 0) {
     document.getElementById("btn_scan").disabled = false;
   } else {
     document.getElementById("btn_scan").disabled = true;
   }
+  document.getElementById("btn_bomb").innerText = "Nutze Scan [" + GADGETS_TEAM.scan + "]";
 }
 
 // löse Scan aus
