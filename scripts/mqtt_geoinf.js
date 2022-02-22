@@ -14,7 +14,7 @@ async function mqtt_sub(topic) {
     await message.send({ hallo: "pisse" });
   } else {
     message.set_callback(topic, rx_game, true);
-    alert("subbed " + topic);
+    //alert("subbed " + topic);
   }
   //await message.send(payload);
 }
@@ -106,7 +106,7 @@ async function tx_game(status, payload) {
   var request = { status: "", payload: [] };
   request.status = status;
   request.payload = payload;
-  alert("im tx game");
+  //alert("im tx game");
   await message.send(JSON.stringify(request));
 }
 

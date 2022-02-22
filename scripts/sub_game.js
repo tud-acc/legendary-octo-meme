@@ -12,8 +12,8 @@ async function onload_body_game() {
   }
 */
   var topic = "game/" + getCookie("lobbyid") + "/" + getCookie("team");
-  alert(topic);
-  await mqtt_sub("game/" + getCookie("lobbyid") + "/" + getCookie("team"));
-  alert("nach mqtt sub");
+  console.dir("sub_game.js: topic: " + topic);
+  await mqtt_sub(topic);
+
   tx_game("mapsetup", [{ lobbyid: getCookie("lobbyid"), team: getCookie("team") }]);
 }
