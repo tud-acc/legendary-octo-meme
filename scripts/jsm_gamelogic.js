@@ -333,11 +333,11 @@ function checkFlags(lobby) {
 
     // prüfe an welches Team die Flagge gehen soll
     // Team erhält 10 Punkte
-    if (a > b) {
+    if (a > b && f.owner != 1) {
       f.owner = 1;
       lobby.teamA.score++;
     }
-    if (b > a) {
+    if (b > a && f.owner != 2) {
       f.owner = 2;
       lobby.teamB.score++;
     }
