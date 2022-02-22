@@ -306,7 +306,7 @@ function setowncookie() {
 function getSessionID() {
   console.dir("connect.sid:");
   console.dir(getCookie("connect.sid"));
-  q;
+
   var sid = getCookie("connect.sid");
   sid = sid.split(".");
   console.dir(sid);
