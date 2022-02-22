@@ -18,7 +18,7 @@ async function onload_body_lobby() {
     clientId: getSessionID(),
     cmd: true,
     connectionTimeoutSeconds: 30,
-    debugLog: false,
+    debugLog: true,
     deviceId: "gts7xlwifi",
     experimentalFeatures: [],
     fusedRegionDetection: true,
