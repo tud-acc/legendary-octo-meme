@@ -177,6 +177,7 @@ function clickHandler(coord) {
         coord: coord
       };
       tx_game("setbomb", [payload_0]);
+      switchInputMode(0);
       break;
     default: // do Nothing
   }
