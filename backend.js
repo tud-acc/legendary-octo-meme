@@ -689,7 +689,7 @@ function updatePosition(lobbyId, team, playerId, pos) {
 
   // spawne zufällig neues Gadget chance 1:20
   let random = randomIntFromInterval(0, 2);
-  debug(D, "Backend - Helper - updatePosition: ", random);
+  //debug(D, "Backend - Helper - updatePosition: ", random);
   if (random == 2) {
     gres = game.spawnGadget(gres);
   }
@@ -718,6 +718,8 @@ function startScan(lobbyId, team) {
 // lobbyID / team = 'A' ; 'B' / coord = [lon, lat]
 function placeBomb(lobbyId, team, coord) {
   let lobby = getLobby(lobbyId);
+
+  debug(D, "Backend - Helper - updatePosition: ", lobby[0]);
 
   // lobbyNew = [lobby, bomid, bombtime]
   let gres = game.setBomb(lobby[1], team, coord);

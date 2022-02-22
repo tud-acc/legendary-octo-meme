@@ -52,6 +52,10 @@ function setBomb(lobby, team, coord) {
   };
   let owner;
 
+  console.log("DEBUG - gamelogic - setBomb::");
+  console.log(lobby);
+  console.log(lobby.teamA.gadgeds);
+
   if (team == "A") {
     if (lobby.teamA.gadgets.bombe <= 0) {
       // prüfe ob Team bombe setzen darf
