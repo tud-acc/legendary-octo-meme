@@ -542,9 +542,11 @@ async function onMessage(topic, message) {
       debug(D, "Backend - MQTT - Funktion - onMessage - leavelobby - lobbyjson: ", lobbyjson);
 
       response.status = "playernames_b";
-
-      response.payload.push(lobbyjson);
       gamedata.lobbies[lobbyindex] = lobbyjson;
+
+      lobbyjson = game.getAllPlayers(lobbyjson);
+      response.payload.push(lobbyjson);
+
       mqttclient.publish("game/" + lobbyid, JSON.stringify(response));
     } else if (jsm.status == "destroylobby") {
       // destory lobby

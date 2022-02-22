@@ -127,9 +127,9 @@ function mapSetup() {
     clickHandler(coord);
   });
 
-  redrawBorder();
-  redrawFlags();
-  redrawGadgets();
+  //redrawBorder();
+  //redrawFlags();
+  //redrawGadgets();
 
   //fetchRecommendedPoints();
   //drawRecommendedPoints();
