@@ -688,7 +688,9 @@ function updatePosition(lobbyId, team, playerId, pos) {
   let gres = game.updatePlayerPos(lobby[1], team, playerId, pos);
 
   // spawne zufällig neues Gadget chance 1:20
-  if (randomIntFromInterval(0, 20) == 2) {
+  let random = randomIntFromInterval(0, 2);
+  debug(D, "Backend - Helper - updatePosition: ", random);
+  if (random == 2) {
     gres = game.spawnGadget(gres);
   }
 
