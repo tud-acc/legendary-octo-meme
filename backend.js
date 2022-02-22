@@ -550,6 +550,20 @@ async function onMessage(topic, message) {
       mqttclient.publish("game/" + lobbyid, JSON.stringify(response));
     } else if (jsm.status == "destroylobby") {
       // destory lobby
+
+      let lobbyid = jsm.payload[0].lobbyid;
+      debug(D, "Backend - MQTT - Funktion - onMessage - leavelobby - lobbyid: ", lobbyid);
+
+      let playerid = jsm.payload[0].playerid;
+      debug(D, "Backend - MQTT - Funktion - onMessage - leavelobby - playerid: ", playerid);
+
+      var lobbyindex = getLobby(lobbyid)[0];
+
+      response.status = "destroylobby_b";
+
+      gamedata.lobbies.splice(lobbyindex, 1);
+
+      mqttclient.publish("game/" + lobbyid, JSON.stringify(response));
     }
   }
 }

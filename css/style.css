@@ -62,7 +62,6 @@ input {
 }
 */
 
-
 .button {
   border: none;
   display: inline-block;
@@ -78,6 +77,13 @@ input {
 }
 .button:hover {
   background-color: #ccc;
+}
+button:disabled,
+button[disabled] {
+  border: 1none;
+  background-color: #cccccc;
+  color: #666666;
+  cursor: inherit;
 }
 
 .menu {

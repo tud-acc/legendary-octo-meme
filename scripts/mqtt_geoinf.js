@@ -97,7 +97,8 @@ function rx_game(topic, data) {
   } else if (data.status == "update") {
     console.log("rx: update");
     console.log(data);
-  } else if (data.status == "update") {
+  } else if (data.status == "destroylobby_b") {
+    console.log("rx_game: destroylobby_b");
   } else if (data.status == "update") {
   } else if (data.status == "update") {
   }
