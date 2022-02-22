@@ -356,12 +356,6 @@ function checkFlags(lobby) {
 function checkGadgets(lobby) {
   let g = lobby.gadgets;
 
-  console.log("DEBUG - gamelogic checkGadgets::");
-  console.log(lobby);
-  console.log(lobby.teamB.players);
-  console.log("-------------");
-  console.log(g);
-
   for (let i = 0; i < g.length; i++) {
     // Prüfe alle Spieler aus Team A
     lobby.teamA.players.forEach((p) => {
