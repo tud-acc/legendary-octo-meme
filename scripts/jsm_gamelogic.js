@@ -259,6 +259,7 @@ function deleteplayer(lobby, playerId) {
       delete lobby.teamB.players[i];
     }
   }
+  return lobby;
 }
 
 // Platziert neues zufälliges Gadget zum Sammeln

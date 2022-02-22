@@ -177,7 +177,7 @@ app.post("/node.js", function (req, res) {
   req.on("end", async function () {
     var params = new URLSearchParams(body);
 
-    if ((params.status = "lobby_abandoned")) {
+    if (params.status == "lobby_abandoned") {
       cache.put(req.session.id, session_data);
     }
 
@@ -257,7 +257,7 @@ app.post("/creategame.js", function (req, res) {
       id: req.session.id,
       lobbyname: params.get("lobbyname"),
       teamA: {
-        players: [{ id: req.session.id, name: params.get("username"), pos: [] }],
+        players: [{ id: req.session.id, name: params.get("username"), pos: [0, 0] }],
         score: 0,
         gadgets: {
           bombe: 0,
@@ -326,7 +326,7 @@ app.post("/lobbyoverview.js", function (req, res) {
     var addplayer = {
       id: req.session.id,
       name: session_data.username,
-      pos: []
+      pos: [0, 0]
     };
     debug(D, "Backend - Route - POST /lobbyoverview.js - addplayer", addplayer);
 
@@ -451,7 +451,7 @@ async function onMessage(topic, message) {
       debug(D, "Backend - MQTT - Funktion - onMessage - lobbyid: ", lobbyid);
 
       let lobbyobj = game.getAllPlayers(getLobby(lobbyid)[1]);
-      response.status = "playernames";
+      response.status = "playernames_b";
       response.payload.push(lobbyobj);
       mqttclient.publish("game/" + lobbyid, JSON.stringify(response));
 
@@ -535,12 +535,17 @@ async function onMessage(topic, message) {
       let playerid = jsm.payload[0].playerid;
       debug(D, "Backend - MQTT - Funktion - onMessage - leavelobby - playerid: ", playerid);
 
-      var lobby = getLobby(lobbyid);
-      game.deleteplayer(lobby[1], playerid);
+      var lobbyindex = getLobby(lobbyid)[0];
+      let lobbyjson = getLobby(lobbyid)[1];
+
+      lobbyjson = game.deleteplayer(lobbyjson, playerid);
+      debug(D, "Backend - MQTT - Funktion - onMessage - leavelobby - lobbyjson: ", lobbyjson);
 
       response.status = "playernames_b";
 
-      debug(D, "Backend - MQTT - Funktion - onMessage - leavelobby - nach deleteplayer: ");
+      response.payload.push(lobbyjson);
+      gamedata.lobbies[lobbyindex] = lobbyjson;
+      mqttclient.publish("game/" + lobbyid, JSON.stringify(response));
     } else if (jsm.status == "destroylobby") {
       // destory lobby
     }
