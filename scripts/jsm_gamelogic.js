@@ -167,12 +167,12 @@ function buildClientJson(lobby, team) {
   let enemypos = [];
 
   teamData.players.forEach((p) => {
-    teamPos.push(p.position);
+    teamPos.push(p.pos);
   });
 
   if (teamData.scan) {
     enemyData.players.forEach((p) => {
-      enemypos.push(p.position);
+      enemypos.push(p.pos);
     });
   }
 

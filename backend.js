@@ -51,12 +51,12 @@ var gamedata = {
 						{
 							"id": "xs2345fsdf",
 							"name": "beder",
-							"position":[]
+							"pos":[]
 						},
 						{
 							"id": "274574272456",
 							"name": "pretr",
-							"position":[]
+							"pos":[]
 						}
 					],
 					"score": 0,

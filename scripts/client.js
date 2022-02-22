@@ -256,7 +256,7 @@ function leave_lobby() {
 
     window.location.replace("/node.js");
   } else {
-    tx_game("leavelobby", [{ lobbyid: getCookie("lobbyid") }]);
+    tx_game("leavelobby", [{ lobbyid: getCookie("lobbyid"), playerid: getSessionID() }]);
     delete_cookie();
     window.location.replace("/node.js");
   }
