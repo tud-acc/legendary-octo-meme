@@ -62,7 +62,7 @@ async function onload_body_lobby() {
   };
 
   var cd = document.getElementById("configdata");
-  cd.value = config;
+  cd.value = JSON.stringify(config);
 
   /*
   document.getElementById("konfigfile").innerHTML =
