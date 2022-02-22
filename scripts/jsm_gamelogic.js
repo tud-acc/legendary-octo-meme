@@ -52,23 +52,19 @@ function setBomb(lobby, team, coord) {
   };
   let owner;
 
-  console.log("DEBUG - gamelogic - setBomb::");
-  console.log(lobby);
-  console.log(lobby.teamA.gadgeds);
-
   if (team == "A") {
     if (lobby.teamA.gadgets.bombe <= 0) {
       // prüfe ob Team bombe setzen darf
       return lobby;
     }
-    lobby.teamA.gadgeds.bombe = lobby.teamA.gadgeds.bombe - 1;
+    lobby.teamA.gadgets.bombe = lobby.teamA.gadgets.bombe - 1;
     owner = 1;
   } else {
     if (lobby.teamB.gadgets.bombe <= 0) {
       // prüfe ob Team bombe setzen darf
       return lobby;
     }
-    lobby.teamB.gadgeds.bombe = lobby.teamB.gadgeds.bombe - 1;
+    lobby.teamB.gadgets.bombe = lobby.teamB.gadgets.bombe - 1;
     owner = 2;
   }
 
@@ -113,11 +109,13 @@ function useScan(lobby, team) {
       return lobby;
     }
     lobby.teamA.scan = true;
+    lobby.teamA.gadgets.scan--;
   } else {
     if (lobby.teamB.gadgets.scan < 0) {
       return lobby;
     }
     lobby.teamB.scan = true;
+    lobby.teamB.gadgets.scan--;
   }
 
   return [lobby, SCANTIMER];
