@@ -250,13 +250,13 @@ function deleteplayer(lobby, playerId) {
   let plist = lobby.teamA.players;
   for (let i = 0; i < plist.length; i++) {
     if (plist[i].id == playerId) {
-      delete lobby.teamA.players[i];
+      lobby.teamA.players.splice(i, 1);
     }
   }
   plist = lobby.teamB.players;
   for (let i = 0; i < plist.length; i++) {
     if (plist[i].id == playerId) {
-      delete lobby.teamB.players[i];
+      lobby.teamB.players.splice(i, 1);
     }
   }
   return lobby;

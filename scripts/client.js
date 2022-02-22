@@ -8,7 +8,7 @@ var FLAGS = [],
   FLAGS_TEAM,
   FLAGS_ENEMY;
 var RADIUS = 50;
-var GADGETS;
+var GADGETS = [];
 var GADGETS_TEAM;
 var SCORE;
 
