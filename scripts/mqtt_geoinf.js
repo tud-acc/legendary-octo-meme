@@ -94,11 +94,12 @@ function rx_game(topic, data) {
     document.getElementById("teamA").innerHTML = lobbynamesteamA;
 
     document.getElementById("teamB").innerHTML = lobbynamesteamB;
-  } else if (data.status == "update") {
-    console.log("rx: update");
+  } else if (data.status == "update_b") {
+    console.log("rx_game: update");
     console.log(data);
   } else if (data.status == "destroylobby_b") {
     console.log("rx_game: destroylobby_b");
+
     alert("rx_game: destroylobby_b angekommen");
   } else if (data.status == "update") {
   } else if (data.status == "update") {

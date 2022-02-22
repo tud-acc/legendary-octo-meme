@@ -676,9 +676,9 @@ function publishGameData(lobby) {
   let dataA = game.buildClientJson(lobby, "A");
   let dataB = game.buildClientJson(lobby, "B");
 
-  let topic = "mqttfetch/game/" + lobby.id;
+  let topic = "game/" + lobby.id;
   let response = {
-    status: "update",
+    status: "update_b",
     payload: [dataA]
   };
 
