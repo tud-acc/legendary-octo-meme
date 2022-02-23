@@ -359,7 +359,7 @@ function checkGadgets(lobby) {
   for (let i = 0; i < g.length; i++) {
     // Prüfe alle Spieler aus Team A
     lobby.teamA.players.forEach((p) => {
-      if (inRange(50, g[i].coord, p.pos)) {
+      if (g[i].collectable && inRange(50, g[i].coord, p.pos)) {
         if (g[i].type == "bomb") {
           lobby.teamA.gadgets.bombe++;
         } else {
@@ -372,7 +372,7 @@ function checkGadgets(lobby) {
   for (let i = 0; i < g.length; i++) {
     // Prüfe alle Spieler aus Team B
     lobby.teamB.players.forEach((p) => {
-      if (inRange(50, g[i].coord, p.pos)) {
+      if (g[i].collectable && inRange(50, g[i].coord, p.pos)) {
         if (g[i].type == "bomb") {
           lobby.teamB.gadgets.bombe++;
         } else {
