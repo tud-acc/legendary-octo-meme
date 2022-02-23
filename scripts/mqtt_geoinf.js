@@ -7,32 +7,18 @@ async function mqtt_sub(topic) {
   await message.init("193.197.230.34", 1884);
   //await message.init("192.168.0.90", 1884);
 
-  console.dir("topic:");
-  console.dir(topic);
   if (topic == "lobby") {
     message.set_callback(topic, rx_lobby, true);
     await message.send({ hallo: "hello" });
   } else {
     message.set_callback(topic, rx_game, true);
-    //alert("subbed " + topic);
   }
-  //await message.send(payload);
 }
 
 function rx_lobby(topic, data) {
   // data ist bereits JSON Object, kein parse noetig
-  console.log("lobbydata received");
-
-  console.log(data);
-  console.dir("nach data");
-  // console.log(JSON.parse(data));
-  console.dir("nach parsedata");
-
-  console.dir(data.lobbies[0]);
 
   var lobbyindex = Object.keys(data.lobbies).length;
-  console.dir("lobbyindex");
-  console.dir(lobbyindex);
 
   var lobbystring = "<form method='POST' onsubmit='sub_game()'>";
 
@@ -42,27 +28,15 @@ function rx_lobby(topic, data) {
   }
   lobbystring += "<input type='submit' class='button center blue' value='Lobby beitreten'>";
   lobbystring += "</form>";
-  console.dir(lobbystring);
   document.getElementById("lobbyuebersicht").innerHTML = lobbystring;
-  /*
-    form(method="POST")
-    input(type="submit" class='button center blue' value="Lobby beitreten")
- */
 }
 
 function sub_game() {
-  console.log("sub game anfang");
   var selection = document.querySelector('input[name="lobbyid"]:checked').value;
-  console.dir(selection);
   setCookie("lobbyid", selection, 1);
-  //mqtt_sub("game");
 }
 
 function rx_game(topic, data) {
-  console.dir("rx_game:");
-  console.dir("topic: " + topic);
-  console.dir("data: " + data);
-
   if (data.status == "mapsetup_b") {
     console.log("rx_game: mapsetup_b");
 
@@ -72,10 +46,6 @@ function rx_game(topic, data) {
 
     var lobbynameindexteamA = data.payload[0].teamA.length;
     var lobbynameindexteamB = data.payload[0].teamB.length;
-
-    console.dir(lobbynameindexteamA);
-    console.dir(lobbynameindexteamB);
-
     var lobbynamesteamA = "";
     var lobbynamesteamB = "";
 
@@ -86,22 +56,14 @@ function rx_game(topic, data) {
       lobbynamesteamB += data.payload[0].teamB[i] + "<br>";
     }
 
-    console.dir(lobbynamesteamA);
-    console.dir(lobbynamesteamB);
-
-    //document.getElementById("lobbynames").innerHTML = lobbynamesteamA + lobbynamesteamB;
-
     document.getElementById("teamA").innerHTML = lobbynamesteamA;
 
     document.getElementById("teamB").innerHTML = lobbynamesteamB;
   } else if (data.status == "update_b") {
     console.log("rx_game: update");
-    console.log(data);
     parseGameData(data.payload[0]);
   } else if (data.status == "destroylobby_b") {
     console.log("rx_game: destroylobby_b");
-
-    alert("rx_game: destroylobby_b angekommen");
 
     delete_cookie();
     window.location.replace("/node.js");
@@ -113,7 +75,6 @@ function rx_game(topic, data) {
       game_b_setcookie();
       window.location.replace("/game.js");
     }
-  } else if (data.status == "update") {
   }
 }
 
@@ -121,7 +82,6 @@ async function tx_game(status, payload) {
   var request = { status: "", payload: [] };
   request.status = status;
   request.payload = payload;
-  //alert("im tx game");
   await message.send(JSON.stringify(request));
 }
 

@@ -1,23 +1,3 @@
-
-
-
-function onload_body_lobbyuebersicht(){
-    mqtt_sub("lobby");
-
+function onload_body_lobbyuebersicht() {
+  mqtt_sub("lobby");
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

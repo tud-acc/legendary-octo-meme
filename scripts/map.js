@@ -3,42 +3,6 @@ var STARTCOORD = [10.066274498130579, 48.841235087603536]; // HS Aalen
 var ZOOMLVL = 14;
 //------------------------------------------------------------------//
 
-/*
-//debug Data:
-GADGETS = [
-  {
-    type: "scan",
-    collectable: true, // false = explodierende bombe
-    coord: [9.213, 47.811],
-    radius: 50, // collectable true = Radius zum sammeln else Explosionsradius
-    time: 5000, // zeit bis explosion in ms
-    owner: 0,
-    id: 0
-  }
-];
-
-PLAYERPOS = [10.057, 48.8676];
-TEAMPOS = [
-  [9.21, 47.81],
-  [9.21, 47.815]
-];
-ENEMYPOS = [
-  [9.26, 47.81],
-  [9.261, 47.815]
-];
-*/
-/*
-FLAGS = [
-  [9.2, 47.8],
-  [9.22, 47.82]
-];
-FLAGS_TEAM = [
-  [9.1, 47.8],
-  [9.11, 47.82]
-];
-FLAGS_ENEMY = [[9.27, 47.825]];
-//GADGETS_TEAM = {"bomb":2, "scan":0}
-*/
 //------------------------------------------------------------------//
 //  Maplayer Setup
 //------------------------------------------------------------------//
@@ -126,14 +90,6 @@ function mapSetup() {
     let coord = ol.proj.transform(evt.coordinate, "EPSG:3857", "EPSG:4326");
     clickHandler(coord);
   });
-
-  //redrawBorder();
-  //redrawFlags();
-  //redrawGadgets();
-
-  //fetchRecommendedPoints();
-  //drawRecommendedPoints();
-  //redrawPlayerPos();
 }
 
 // Klick Handler beim klicken in die Karte

@@ -125,15 +125,11 @@ var gamedata = {
 // GET Route /node.js -> PUG: index.pug
 app.get("/node.js", function (req, res) {
   debug(D, "Backend - Route - GET /node.js");
-  debug(D, "Backend - Route - GET /node.js - cache.get(req.session.id):", cache.get(req.session.id));
-  debug(D, "Backend - Route - GET /node.js - req.session.id:", req.session.id);
 
   req.session.isAuth = true;
   req.session.cookie.httpOnly = false;
 
   if (cache.get(req.session.id) == null) {
-    debug(D, "Backend - Route - GET /node.js - req.session.id == null");
-
     var session_data = {
       username: ""
     };
@@ -143,30 +139,11 @@ app.get("/node.js", function (req, res) {
     cache.put(req.session.id, session_data, 3600000);
   }
 
-  /*
-	console.dir(test);
-	console.dir(test.lobbies[0]);
-	console.dir(test.lobbies[0].id);
-	console.dir(test.lobbies[0].lobbyname);
-	console.dir(test.lobbies[0].players[0]);
-	console.dir(test.lobbies[0].players[1]);
-
-	if(test.lobbies[0].id == "xs2345fsdf"){
-		console.dir(test.lobbies[0].lobbyname);
-	}
-*/
-
-  debug(D, "Backend - Route - GET /node.js - req.session.id:", req.session.id);
-  debug(D, "Backend - Route - GET /node.js - req.session:", req.session);
-
   res.render("index");
 });
 
 // POST Route /node.js -> Redirect: GET auf /node.js
 app.post("/node.js", function (req, res) {
-  debug(D, "Backend - Route - POST /node.js");
-  debug(D, "Backend - Route - GET /node.js - cache.get(req.session.id):", cache.get(req.session.id));
-
   session_data = cache.get(req.session.id);
 
   var body = "";
@@ -189,7 +166,6 @@ app.post("/node.js", function (req, res) {
 // GET Route /joingame.js -> PUG: joingame.pug
 app.get("/joingame.js", function (req, res) {
   debug(D, "Backend - Route - GET /joingame.js");
-  debug(D, "Backend - Route - GET /joingame.js - cache.get(req.session.id): ", cache.get(req.session.id));
 
   res.render("joingame");
 });
@@ -197,7 +173,6 @@ app.get("/joingame.js", function (req, res) {
 // POST Route /joingame.js -> Redirect: GET auf /lobbyoverview.js
 app.post("/joingame.js", function (req, res) {
   debug(D, "Backend - Route - POST /joingame.js");
-  debug(D, "Backend - Route - POST /joingame.js - cache.get(req.session.id): ", cache.get(req.session.id));
 
   var session_data = cache.get(req.session.id);
 
@@ -210,9 +185,6 @@ app.post("/joingame.js", function (req, res) {
     var params = new URLSearchParams(body);
 
     session_data.username = params.get("username");
-
-    debug(D, "Backend - Route - POST /joingame.js - Object.keys(gamedata.lobbies).length", Object.keys(gamedata.lobbies).length);
-
     cache.put(req.session.id, session_data);
 
     res.writeHead(303, { Location: "/lobbyoverview.js" });
@@ -223,7 +195,6 @@ app.post("/joingame.js", function (req, res) {
 // GET Route /creategame.js -> PUG: creategame.pug
 app.get("/creategame.js", function (req, res) {
   debug(D, "Backend - Route - GET /creategame.js");
-  debug(D, "Backend - Route - GET /creategame.js - cache.get(req.session.id): ", cache.get(req.session.id));
 
   res.render("creategame");
 });
@@ -231,7 +202,6 @@ app.get("/creategame.js", function (req, res) {
 // POST Route /creategame.js -> Redirect: GET auf /lobby.js
 app.post("/creategame.js", function (req, res) {
   debug(D, "Backend - Route - POST /creategame.js");
-  debug(D, "Backend - Route - POST /creategame.js - cache.get(req.session.id): ", cache.get(req.session.id));
 
   var session_data = cache.get(req.session.id);
 
@@ -245,11 +215,7 @@ app.post("/creategame.js", function (req, res) {
 
     session_data.username = params.get("username");
 
-    debug(D, "Backend - Route - POST /creategame.js - Object.keys(gamedata.lobbies).length", Object.keys(gamedata.lobbies).length);
-
     var lobbyindex = Object.keys(gamedata.lobbies).length;
-
-    debug(D, "Backend - Route - POST /creategame.js - hidden input string", params.get("hidden"));
 
     var mapdata = JSON.parse(params.get("hidden"));
 
@@ -284,9 +250,6 @@ app.post("/creategame.js", function (req, res) {
 
     gamedata.lobbies.push(newgame_data);
 
-    debug(D, "Backend - Route - POST /creategame.js - gamedata", gamedata);
-    debug(D, "Backend - Route - POST /creategame.js - gamedata.lobbies[0].teamA", gamedata.lobbies[0].teamA);
-
     cache.put(req.session.id, session_data);
 
     mqttclient.publish("lobby", JSON.stringify(get_mqtt_lobbies()));
@@ -299,7 +262,6 @@ app.post("/creategame.js", function (req, res) {
 // GET Route /lobbyoverview.js -> PUG: creategame.pug
 app.get("/lobbyoverview.js", function (req, res) {
   debug(D, "Backend - Route - GET /lobbyoverview.js");
-  debug(D, "Backend - Route - GET /lobbyoverview.js - cache.get(req.session.id): ", cache.get(req.session.id));
 
   res.render("lobbyoverview");
 });
@@ -307,7 +269,6 @@ app.get("/lobbyoverview.js", function (req, res) {
 // POST Route /lobbyoverview.js -> Redirect: GET auf /lobby.js
 app.post("/lobbyoverview.js", function (req, res) {
   debug(D, "Backend - Route - POST /lobbyoverview.js");
-  debug(D, "Backend - Route - POST /lobbyoverview.js - cache.get(req.session.id): ", cache.get(req.session.id));
 
   var session_data = cache.get(req.session.id);
 
@@ -318,33 +279,18 @@ app.post("/lobbyoverview.js", function (req, res) {
 
   req.on("end", async function () {
     var params = new URLSearchParams(body);
-    debug(D, "Backend - Route - POST /lobbyoverview.js - params", params);
 
     var lobbyid = params.get("lobbyid");
-    debug(D, "Backend - Route - POST /lobbyoverview.js - lobbyid", lobbyid);
 
     var addplayer = {
       id: req.session.id,
       name: session_data.username,
       pos: [0, 0]
     };
-    debug(D, "Backend - Route - POST /lobbyoverview.js - addplayer", addplayer);
 
     var lobbyindex = getLobby(lobbyid)[0];
-    debug(D, "Backend - Route - POST /lobbyoverview.js - lobbyindex[0]", lobbyindex);
-
-    // TODO Wenn lobby nicht gefunden abfangen
 
     gamedata.lobbies[lobbyindex].teamA.players.push(addplayer);
-
-    /*
-		console.dir(gamedata.lobbies[0].teamA.players[0]);
-		console.dir(gamedata.lobbies[0].teamA.players[1]);
-		 */
-
-    debug(D, "Backend - Route - POST /lobbyoverview.js - game.getAllPlayers(getLobby(lobbyid)[1])", game.getAllPlayers(getLobby(lobbyid)[1]));
-
-    //mqttclient.publish("game",JSON.stringify(game.getAllPlayers(getLobby(lobbyid)[1])));
 
     let lobbyobj = game.getAllPlayers(getLobby(lobbyid)[1]);
     let response = buildResponse("playernames", lobbyobj);
@@ -358,7 +304,6 @@ app.post("/lobbyoverview.js", function (req, res) {
 // GET Route /lobby.js -> PUG: lobby.pug
 app.get("/lobby.js", function (req, res) {
   debug(D, "Backend - Route - GET /lobby.js");
-  debug(D, "Backend - Route - GET /lobby.js - cache.get(req.session.id): ", cache.get(req.session.id));
 
   res.render("lobby");
 });
@@ -366,12 +311,6 @@ app.get("/lobby.js", function (req, res) {
 // POST Route /lobby.js -> Redirect: GET auf /game.js
 app.post("/lobby.js", function (req, res) {
   debug(D, "Backend - Route - POST /lobby.js");
-  debug(D, "Backend - Route - POST /lobby.js - cache.get(req.session.id): ", cache.get(req.session.id));
-
-  // TEMP RENDERT LOBBY!!!
-  //res.render("lobby");
-
-  //res.render("game");
 
   res.writeHead(303, { Location: "/game.js" });
   res.end();
@@ -380,7 +319,6 @@ app.post("/lobby.js", function (req, res) {
 // GET Route /game.js -> PUG: game.pug
 app.get("/game.js", function (req, res) {
   debug(D, "Backend - Route - GET /game.js");
-  debug(D, "Backend - Route - GET /game.js - cache.get(req.session.id): ", cache.get(req.session.id));
 
   res.render("game");
 });
@@ -430,15 +368,9 @@ async function onMessage(topic, message) {
   debug(D, "Backend - MQTT - Funktion - onMessage");
 
   var jsm = JSON.parse(message);
-  //debug(D, "Backend - MQTT - Funktion - onMessage - jsm: ", jsm);
-  debug(D, "Backend - MQTT - Funktion - onMessage - JSON.parse(message): ", JSON.parse(message));
-  debug(D, "Backend - MQTT - Funktion - onMessage - topic: ", topic);
 
   var response = { status: "", payload: [] };
   var ntopic = topic.split("/");
-  /*
-	//debug(D, "Backend - MQTT - Funktion - onMessage - ntopic: ", ntopic);
-	 */
 
   if (ntopic[1] == "lobby") {
     debug(D, "Backend - MQTT - Funktion - onMessage - get_mqtt_lobbies(): ", get_mqtt_lobbies());
@@ -448,7 +380,6 @@ async function onMessage(topic, message) {
     if (jsm.status == "getnames") {
       debug(D, "Backend - MQTT - Funktion - onMessage - status getnames: ");
       let lobbyid = jsm.payload[0].lobbyid;
-      debug(D, "Backend - MQTT - Funktion - onMessage - lobbyid: ", lobbyid);
 
       let lobbyobj = game.getAllPlayers(getLobby(lobbyid)[1]);
       response.status = "playernames_b";
@@ -457,23 +388,15 @@ async function onMessage(topic, message) {
 
       // SwitchTeam
     } else if (jsm.status == "switchteam") {
-      debug(D, "Backend - MQTT - Funktion - onMessage - jsm.payload[0].lobbyid: ", jsm.payload[0].lobbyid);
       let lobbyid = jsm.payload[0].lobbyid;
-      debug(D, "Backend - MQTT - Funktion - onMessage - jsm.payload[0].playerid: ", jsm.payload[0].playerid);
       let playerid = jsm.payload[0].playerid;
       let lobbyindex = getLobby(lobbyid)[0];
-      debug(D, "Backend - MQTT - Funktion - onMessage - lobbyindex: ", lobbyindex);
-
       let lobbyjson = getLobby(lobbyid)[1];
-      debug(D, "Backend - MQTT - Funktion - onMessage - lobbyid: ", lobbyjson);
 
       lobbyjson = game.playerSwapTeam(lobbyjson, playerid);
       gamedata.lobbies[lobbyindex] = lobbyjson;
-
       lobbyjson = game.getAllPlayers(lobbyjson);
-
       response.status = "playernames_b";
-
       response.payload.push(lobbyjson);
 
       mqttclient.publish("game/" + lobbyid, JSON.stringify(response));
@@ -514,16 +437,13 @@ async function onMessage(topic, message) {
     } else if (jsm.status == "leavelobby") {
       // leave lobby
       let lobbyid = jsm.payload[0].lobbyid;
-      debug(D, "Backend - MQTT - Funktion - onMessage - leavelobby - lobbyid: ", lobbyid);
 
       let playerid = jsm.payload[0].playerid;
-      debug(D, "Backend - MQTT - Funktion - onMessage - leavelobby - playerid: ", playerid);
 
       var lobbyindex = getLobby(lobbyid)[0];
       let lobbyjson = getLobby(lobbyid)[1];
 
       lobbyjson = game.deleteplayer(lobbyjson, playerid);
-      debug(D, "Backend - MQTT - Funktion - onMessage - leavelobby - lobbyjson: ", lobbyjson);
 
       response.status = "playernames_b";
       gamedata.lobbies[lobbyindex] = lobbyjson;
@@ -534,13 +454,8 @@ async function onMessage(topic, message) {
       mqttclient.publish("game/" + lobbyid, JSON.stringify(response));
     } else if (jsm.status == "destroylobby") {
       // destory lobby
-
       let lobbyid = jsm.payload[0].lobbyid;
-      debug(D, "Backend - MQTT - Funktion - onMessage - leavelobby - lobbyid: ", lobbyid);
-
       let playerid = jsm.payload[0].playerid;
-      debug(D, "Backend - MQTT - Funktion - onMessage - leavelobby - playerid: ", playerid);
-
       var lobbyindex = getLobby(lobbyid)[0];
 
       response.status = "destroylobby_b";
@@ -552,7 +467,6 @@ async function onMessage(topic, message) {
       debug(D, "Backend - MQTT - Funktion - onMessage - startgame: ");
 
       let lobbyid = jsm.payload[0].lobbyid;
-      debug(D, "Backend - MQTT - Funktion - onMessage - leavelobby - lobbyid: ", lobbyid);
 
       response.status = "startgame_b";
 
@@ -582,7 +496,6 @@ function get_mqtt_lobbies() {
   };
 
   debug(D, "Backend - MQTT - Funktion - get_mqtt_lobbies - lobbys: ", mqtt_lobbies);
-  debug(D, "Backend - MQTT - Funktion - get_mqtt_lobbies - mqtt lobbyanzahl: ", Object.keys(gamedata.lobbies).length);
 
   var temp_lobby = { lobby: { name: "", id: "" } };
   for (var i = 0; i < Object.keys(gamedata.lobbies).length; i++) {
@@ -593,7 +506,6 @@ function get_mqtt_lobbies() {
     mqtt_lobbies.lobbies.push(temp_lobby.lobby);
   }
 
-  debug(D, "Backend - MQTT - Funktion - get_mqtt_lobbies - lobbys: ", mqtt_lobbies);
   return mqtt_lobbies;
 }
 
@@ -624,8 +536,6 @@ function deleteLobby(lobbyId) {
 // Baut Antwort JSON-Objekt fuer Client
 // Input: Status und Payload als JSON-Objekt oder Array
 function buildResponse(status, payload) {
-  debug(D, "Backend - Function - buildResponse");
-
   var response = { status: "", payload: [] };
   response.status = status;
   if (Array.isArray(payload)) {
@@ -717,8 +627,6 @@ function startScan(lobbyId, team) {
 // lobbyID / team = 'A' ; 'B' / coord = [lon, lat]
 function placeBomb(lobbyId, team, coord) {
   let lobby = getLobby(lobbyId);
-
-  debug(D, "Backend - Helper - updatePosition: ", lobby[0]);
 
   // lobbyNew = [lobby, bomid, bombtime]
   let gres = game.setBomb(lobby[1], team, coord);
