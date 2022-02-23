@@ -45,17 +45,17 @@ var gamedata = {
 		"lobbies":[
 			{
 				"id": "xs2345fsdf",
-				"lobbyname": "bederslobby",
+				"lobbyname": "eine lobby",
 				"teamA":{
 					"players":[
 						{
 							"id": "xs2345fsdf",
-							"name": "beder",
+							"name": "testuser",
 							"pos":[]
 						},
 						{
 							"id": "274574272456",
-							"name": "pretr",
+							"name": "anderer user",
 							"pos":[]
 						}
 					],

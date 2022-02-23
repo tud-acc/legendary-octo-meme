@@ -11,7 +11,7 @@ async function mqtt_sub(topic) {
   console.dir(topic);
   if (topic == "lobby") {
     message.set_callback(topic, rx_lobby, true);
-    await message.send({ hallo: "pisse" });
+    await message.send({ hallo: "hello" });
   } else {
     message.set_callback(topic, rx_game, true);
     //alert("subbed " + topic);
