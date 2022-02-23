@@ -16,13 +16,6 @@ var SCORE;
 var startCoord = []; //[10.057, 48.8676];
 var zoomLevel = 16;
 
-// Seitenaufruf, Karte erstellen
-/*
-window.onload = async function() {
-	//mapSetup(startCoord, zoomLevel);
-}
-*/
-
 // Schalte zwischen Eingabemodi um
 function switchInputMode(mode) {
   INPUTMODE = mode;
@@ -57,10 +50,6 @@ function resetFlags() {
 }
 
 //------------------------------------------------------------------//
-//  MQTT
-//------------------------------------------------------------------//
-
-//------------------------------------------------------------------//
 //  Hilfsfunktionen / Spielfunktionen
 //------------------------------------------------------------------//
 
@@ -77,33 +66,17 @@ function parseGameData(json) {
   GADGETS_TEAM = json.teamGadgets;
   SCORE = json.score;
 
-  console.log("Gamedata::");
-  console.log(BORDERS);
-  console.log(FLAGS);
-  console.log(FLAGS_TEAM);
-  console.log(FLAGS_ENEMY);
-  console.log(TEAMPOS);
-  console.log(ENEMYPOS);
-  console.log(GADGETS);
-  console.log(GADGETS_TEAM);
-  console.log(SCORE);
-
   // erstaufruf --> Mapsetup aufrufen
   if (startCoord.length == 0) {
     startCoord = json.startCoords;
     zoomLevel = json.zoomLevel;
-    console.log("call map.js -> Mapsetup");
     mapSetup();
   }
 
   // redraw VectorLayers
-  console.log("draw borders");
   redrawBorder();
-  console.log("draw players");
   redrawPlayerPos();
-  console.log("draw flags");
   redrawFlags();
-  console.log("draw gadgets");
   redrawGadgets();
 
   // update Score
@@ -213,12 +186,7 @@ async function getdata() {
   var content = await response.text();
 
   var json_data = JSON.parse(content);
-  console.log(json_data);
   return json_data;
-}
-
-async function init() {
-  //mqtt_sub();
 }
 
 function redirect_lobby_game_check() {
@@ -258,8 +226,6 @@ function delete_cookie() {
 }
 
 function leave_lobby() {
-  console.dir("leave lobby button");
-
   if (getCookie("lobbyid") == getSessionID()) {
     tx_game("destroylobby", [{ lobbyid: getCookie("lobbyid"), playerid: getSessionID() }]);
     delete_cookie();
@@ -270,20 +236,14 @@ function leave_lobby() {
     delete_cookie();
     window.location.replace("/node.js");
   }
-
-  //post("/node.js", { status: "lobby_abandoned" });
-  //window.location.replace("/node.js");
 }
 
 // Setzt einen Cookie mit der lobbyid, falls dieser noch nicht vorhanden ist
 // Checkt, ob auf der Map Flaggen, Borders und Recommended Points gesetzt sind
 function setowncookie() {
-  console.dir("setowncookie vor if");
   if (getCookie("lobbyid") != getSessionID()) {
     setCookie("lobbyid", getSessionID(), 1);
-    console.dir("setowncookie gesetzt");
   }
-
   setCookie("inlobby", true, 1);
   setCookie("team", "A", 1);
   setCookie("ingame", "false", 1);
@@ -306,79 +266,16 @@ function setowncookie() {
 }
 
 function getSessionID() {
-  console.dir("connect.sid:");
-  console.dir(getCookie("connect.sid"));
-
   var sid = getCookie("connect.sid");
   sid = sid.split(".");
-  console.dir(sid);
 
   sid = sid[0].slice(4, sid[0].length);
-  console.dir(sid);
 
   return sid;
 }
 
 //var map;
 var json_data;
-/*
-window.onload = async function() {
-
-	console.dir("hej");
-/*
-	var queryString = window.location.search;
-	console.log(queryString);
-
-	var urlParams = new URLSearchParams(queryString);
-	var lobby_name = urlParams.get('lobbyname');
-
-
-	var lobbyname = document.getElementById("lobbyname");
-	lobbyname.innerHTML = "<h2>Lobby "+lobby_name+"</h2>"
-
-
- */
-/*
-	var div = document.getElementById("startbutton");
-	div.innerHTML =
-		'<input type = "text" name="name" value="" />'
-
-	
-	 */
-/*
-
-	//Fetch Daten
-	json_data = await getdata();
-	
-	//Wichtig: Wandeln in EPSG:3857-Darstellung
-	const vectorSource = new ol.source.Vector({
-		features: new ol.format.GeoJSON().readFeatures(json_data,{featureProjection: 'EPSG:3857'}),
-	});
-	
-	const vectorLayer = new ol.layer.Vector({
-	  source: vectorSource,
-	  style: lineStyle
-	});
-
-	var street = new ol.layer.Tile({
-		source: new ol.source.XYZ({
-				url: 'https://a.tile.openstreetmap.de/{z}/{x}/{y}.png'
-		})
-	});
-
-	//Deutschland in der Mitte zentriert auf Zoomlevel 6
-	var pos = ol.proj.fromLonLat([10.933,50.820]);
-	map = new ol.Map({
-		target: 'map',
-		layers: [street,vectorLayer],
-		view: new ol.View({center: pos,zoom: 6})
-	});
-
-
-
-}
-
-*/
 
 function download_config(filename, text) {
   var element = document.createElement("a");

@@ -9,6 +9,7 @@ async function onload_body_lobby() {
     document.getElementById("startbutton").innerHTML = '<br><a href="/game.js" class="button blue" type="button" onclick="game_setcookie()">Spiel starten!</a>';
   }
 
+  // owntracks config file
   var config = {
     _type: "configuration",
     waypoints: [],
@@ -63,19 +64,6 @@ async function onload_body_lobby() {
 
   var cd = document.getElementById("configdata");
   cd.value = JSON.stringify(config);
-
-  /*
-  document.getElementById("konfigfile").innerHTML =
-    `<form onsubmit="download_config(this[name].value, this[` +
-    text +
-    `].value)">
-      <input type="hidden" name="name" value="config.otrc"><br>
-      <input type="hidden" name="text" value=` +
-    config +
-    `><br>
-      <input type="submit" value="Download Owntracks Config">
-  </form>`;
-  */
 
   await mqtt_sub("game/" + getCookie("lobbyid"));
   tx_game("getnames", [{ lobbyid: getCookie("lobbyid") }]);
